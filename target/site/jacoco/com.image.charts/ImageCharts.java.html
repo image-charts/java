@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ImageCharts.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Image-Charts</a> &gt; <a href="index.source.html" class="el_package">com.image.charts</a> &gt; <span class="el_source">ImageCharts.java</span></div><h1>ImageCharts.java</h1><pre class="source lang-java linenums">package com.image.charts;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+import sun.misc.BASE64Encoder;
+
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+public class ImageCharts {
+    private static final String DEFAULT_ENCODING = &quot;UTF-8&quot;;
+
+    private String secret;
+<span class="nc" id="L29">    private Integer timeout = 5000;</span>
+<span class="nc" id="L30">    private String host = &quot;image-charts.com&quot;;</span>
+<span class="nc" id="L31">    private String protocol = &quot;https&quot;;</span>
+<span class="nc" id="L32">    private Integer port = 443;</span>
+<span class="nc" id="L33">    private String pathname = &quot;/chart&quot;;</span>
+<span class="nc" id="L34">    private Map&lt;String, Object&gt; query = new HashMap();</span>
+
+    /**
+     * Free usage
+     **/
+    public ImageCharts() {
+<span class="nc" id="L40">        this(null, null, null, null, null);</span>
+<span class="nc" id="L41">    }</span>
+
+    /**
+    * Enterprise &amp; Enterprise+
+    * @param secret  (Enterprise and Enterprise+ subscription only) SECRET_KEY. Default : null
+    */
+    public ImageCharts(String secret) {
+<span class="nc" id="L48">        this(secret, null);</span>
+<span class="nc" id="L49">    }</span>
+
+    /**
+    * Enterprise &amp; Enterprise+
+    * @param secret  (Enterprise and Enterprise+ subscription only) SECRET_KEY. Default : null
+    * @param timeout  Request timeout (in millisecond) when calling toBuffer() or toDataURI(). Default if null : 5000
+    */
+    public ImageCharts(String secret, Integer timeout) {
+<span class="nc" id="L57">        this(null, null, null, null, secret, timeout);</span>
+<span class="nc" id="L58">    }</span>
+
+    /**
+    * On-premise
+    * @param protocol  (On-Premise subscription only) custom protocol. Default if null : &quot;https&quot;
+    * @param host  (Enterprise, Enterprise+ and On-Premise subscription only) custom domain. Default if null : &quot;image-charts.com&quot;
+    * @param port  (On-Premise subscription only) custom port. Default if null &quot;443&quot;
+    * @param pathname  (On-Premise subscription only) custom pathname. Default if null &quot;/chart&quot;
+    * @param secret  (Enterprise and Enterprise+ subscription only) SECRET_KEY. Default : null
+    */
+    public ImageCharts(String protocol, String host, Integer port, String pathname, String secret) {
+<span class="nc" id="L69">        this(protocol, host, port, pathname, secret, null);</span>
+<span class="nc" id="L70">    }</span>
+
+    /**
+    * On-premise
+    * @param protocol  (On-Premise subscription only) custom protocol. Default if null : &quot;https&quot;
+    * @param host  (Enterprise, Enterprise+ and On-Premise subscription only) custom domain. Default if null : &quot;image-charts.com&quot;
+    * @param port  (On-Premise subscription only) custom port. Default if null &quot;443&quot;
+    * @param pathname  (On-Premise subscription only) custom pathname. Default if null &quot;/chart&quot;
+    * @param secret  (Enterprise and Enterprise+ subscription only) SECRET_KEY. Default : null
+    * @param timeout  Request timeout (in millisecond) when calling toBuffer() or toDataURI(). Default if null : 5000
+    */
+<span class="nc" id="L81">    public ImageCharts(String protocol, String host, Integer port, String pathname, String secret, Integer timeout) {</span>
+<span class="nc" id="L82">        this.secret = secret;</span>
+<span class="nc bnc" id="L83" title="All 2 branches missed.">        if (timeout != null) this.timeout = timeout;</span>
+<span class="nc bnc" id="L84" title="All 2 branches missed.">        if (host != null) this.host = host;</span>
+<span class="nc bnc" id="L85" title="All 2 branches missed.">        if (protocol != null) this.protocol = protocol;</span>
+<span class="nc bnc" id="L86" title="All 2 branches missed.">        if (port != null) this.port = port;</span>
+<span class="nc bnc" id="L87" title="All 2 branches missed.">        if (pathname != null) this.pathname = pathname;</span>
+<span class="nc" id="L88">    }</span>
+
+    private ImageCharts clone(String key, Object value) {
+<span class="nc" id="L91">        this.query.put(key, value);</span>
+<span class="nc" id="L92">        return this;</span>
+    }
+
+    
+        /**
+        * bvg= grouped bar chart, bvs= stacked bar chart, lc=line chart, ls=sparklines, p=pie chart. gv=graph viz
+	*         Three-dimensional pie chart (p3) will be rendered in 2D, concentric pie chart are not supported.
+	*         [Optional, line charts only] You can add :nda after the chart type in line charts to hide the default axes.
+        * [Reference documentation]{@link https://documentation.image-charts.com/reference/chart-type/}
+        * @example
+    * ImageCharts.Builder chart = new ImageCharts.Builder().cht(&quot;bvg&quot;);
+    * ImageCharts.Builder chart = new ImageCharts.Builder().cht(&quot;p&quot;);
+        * 
+        * @param {String} value - Chart type
+        * @return {ImageCharts}
+        */
+        public ImageCharts cht(String cht) {
+<span class="nc" id="L109">            return this.clone(&quot;cht&quot;, cht);</span>
+        }
+    
+        /**
+        * chart data
+        * [Reference documentation]{@link https://documentation.image-charts.com/reference/data-format/}
+        * @example
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chd(&quot;a:-100,200.5,75.55,110&quot;);
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chd(&quot;t:10,20,30|15,25,35&quot;);
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chd(&quot;s:BTb19_,Mn5tzb&quot;);
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chd(&quot;e:BaPoqM2s,-A__RMD6&quot;);
+        * 
+        * @param {String} value - chart data
+        * @return {ImageCharts}
+        */
+        public ImageCharts chd(String chd) {
+<span class="nc" id="L125">            return this.clone(&quot;chd&quot;, chd);</span>
+        }
+    
+        /**
+        * You can configure some charts to scale automatically to fit their data with chds=a. The chart will be scaled so that the largest value is at the top of the chart and the smallest (or zero, if all values are greater than zero) will be at the bottom. Otherwise the &amp;#34;&amp;amp;lg;series_1_min&amp;amp;gt;,&amp;amp;lg;series_1_max&amp;amp;gt;,...,&amp;amp;lg;series_n_min&amp;amp;gt;,&amp;amp;lg;series_n_max&amp;amp;gt;&amp;#34; format set one or more minimum and maximum permitted values for each data series, separated by commas. You must supply both a max and a min. If you supply fewer pairs than there are data series, the last pair is applied to all remaining data series. Note that this does not change the axis range; to change the axis range, you must set the chxr parameter. Valid values range from (+/-)9.999e(+/-)199. You can specify values in either standard or E notation.
+        * [Reference documentation]{@link https://documentation.image-charts.com/reference/data-format/#text-format-with-custom-scaling}
+        * @example
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chds(&quot;-80,140&quot;);
+        * 
+        * @param {String} value - data format with custom scaling
+        * @return {ImageCharts}
+        */
+        public ImageCharts chds(String chds) {
+<span class="nc" id="L138">            return this.clone(&quot;chds&quot;, chds);</span>
+        }
+    
+        /**
+        * How to encode the data in the QR code. &amp;#39;UTF-8&amp;#39; is the default and only supported value. Contact our team if you wish to have support for Shift_JIS and/or ISO-8859-1.
+        * [Reference documentation]{@link https://documentation.image-charts.com/qr-codes/#data-encoding}
+        * @example
+    * ImageCharts.Builder chart = new ImageCharts.Builder().choe(&quot;UTF-8&quot;);
+        * 
+        * @param {String} value - QRCode data encoding
+        * @return {ImageCharts}
+        */
+        public ImageCharts choe(String choe) {
+<span class="nc" id="L151">            return this.clone(&quot;choe&quot;, choe);</span>
+        }
+    
+        /**
+        * QRCode error correction level and optional margin
+        * [Reference documentation]{@link https://documentation.image-charts.com/qr-codes/#error-correction-level-and-margin}
+        * @example
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chld(&quot;L|4&quot;);
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chld(&quot;M|10&quot;);
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chld(&quot;Q|5&quot;);
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chld(&quot;H|18&quot;);
+        * @default &quot;L|4&quot;
+        * @param {String} value - QRCode error correction level and optional margin
+        * @return {ImageCharts}
+        */
+        public ImageCharts chld(String chld) {
+<span class="nc" id="L167">            return this.clone(&quot;chld&quot;, chld);</span>
+        }
+    
+        /**
+        * You can specify the range of values that appear on each axis independently, using the chxr parameter. Note that this does not change the scale of the chart elements (use chds for that), only the scale of the axis labels.
+        * [Reference documentation]{@link https://documentation.image-charts.com/reference/chart-axis/#axis-range}
+        * @example
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chxr(&quot;0,0,200&quot;);
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chxr(&quot;0,10,50,5&quot;);
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chxr(&quot;0,0,500|1,0,200&quot;);
+        * 
+        * @param {String} value - Axis data-range
+        * @return {ImageCharts}
+        */
+        public ImageCharts chxr(String chxr) {
+<span class="nc" id="L182">            return this.clone(&quot;chxr&quot;, chxr);</span>
+        }
+    
+        /**
+        * Some clients like Flowdock/Facebook messenger and so on, needs an URL to ends with a valid image extension file to display the image, use this parameter at the end your URL to support them. Valid values are &amp;#34;.png&amp;#34; and &amp;#34;.gif&amp;#34;
+        * [Reference documentation]{@link https://documentation.image-charts.com/reference/output-format/}
+        * @example
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chof(&quot;.png&quot;);
+        * @default &quot;.png&quot;
+        * @param {String} value - Output fake format
+        * @return {ImageCharts}
+        */
+        public ImageCharts chof(String chof) {
+<span class="nc" id="L195">            return this.clone(&quot;chof&quot;, chof);</span>
+        }
+    
+        /**
+        * Maximum chart size for all charts except maps is 998,001 pixels total (Google Image Charts was limited to 300,000), and maximum width or length is 999 pixels.
+        * [Reference documentation]{@link https://documentation.image-charts.com/reference/chart-size/}
+        * @example
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chs(&quot;400x400&quot;);
+        * 
+        * @param {String} value - Chart size (&amp;lt;width&amp;gt;x&amp;lt;height&amp;gt;)
+        * @return {ImageCharts}
+        */
+        public ImageCharts chs(String chs) {
+<span class="nc" id="L208">            return this.clone(&quot;chs&quot;, chs);</span>
+        }
+    
+        /**
+        * Format: &amp;amp;lt;data_series_1_label&amp;amp;gt;|...|&amp;amp;lt;data_series_n_label&amp;amp;gt;. The text for the legend entries. Each label applies to the corresponding series in the chd array. Use a + mark for a space. If you do not specify this parameter, the chart will not get a legend. There is no way to specify a line break in a label. The legend will typically expand to hold your legend text, and the chart area will shrink to accommodate the legend.
+        * [Reference documentation]{@link https://documentation.image-charts.com/reference/legend-text-and-style/}
+        * @example
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chdl(&quot;NASDAQ|FTSE100|DOW&quot;);
+        * 
+        * @param {String} value - Text for each series, to display in the legend
+        * @return {ImageCharts}
+        */
+        public ImageCharts chdl(String chdl) {
+<span class="nc" id="L221">            return this.clone(&quot;chdl&quot;, chdl);</span>
+        }
+    
+        /**
+        * Specifies the color and font size of the legend text. &amp;lt;color&amp;gt;,&amp;lt;size&amp;gt;
+        * [Reference documentation]{@link https://documentation.image-charts.com/reference/legend-text-and-style/}
+        * @example
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chdls(&quot;9e9e9e,17&quot;);
+        * @default &quot;000000&quot;
+        * @param {String} value - Chart legend text and style
+        * @return {ImageCharts}
+        */
+        public ImageCharts chdls(String chdls) {
+<span class="nc" id="L234">            return this.clone(&quot;chdls&quot;, chdls);</span>
+        }
+    
+        /**
+        * Solid or dotted grid lines
+        * [Reference documentation]{@link https://documentation.image-charts.com/reference/grid-lines/}
+        * @example
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chg(&quot;1,1&quot;);
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chg(&quot;0,1,1,5&quot;);
+        * 
+        * @param {String} value - Solid or dotted grid lines
+        * @return {ImageCharts}
+        */
+        public ImageCharts chg(String chg) {
+<span class="nc" id="L248">            return this.clone(&quot;chg&quot;, chg);</span>
+        }
+    
+        /**
+        * You can specify the colors of a specific series using the chco parameter.
+	*       Format should be &amp;amp;lt;series_2&amp;amp;gt;,...,&amp;amp;lt;series_m&amp;amp;gt;, with each color in RRGGBB format hexadecimal number.
+	*       The exact syntax and meaning can vary by chart type; see your specific chart type for details.
+	*       Each entry in this string is an RRGGBB[AA] format hexadecimal number.
+	*       If there are more series or elements in the chart than colors specified in your string, the API typically cycles through element colors from the start of that series (for elements) or for series colors from the start of the series list.
+	*       Again, see individual chart documentation for details.
+        * [Reference documentation]{@link https://documentation.image-charts.com/bar-charts/#examples}
+        * @example
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chco(&quot;FFC48C&quot;);
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chco(&quot;FF0000,00FF00,0000FF&quot;);
+        * @default &quot;F56991,FF9F80,FFC48C,D1F2A5,EFFAB4&quot;
+        * @param {String} value - series colors
+        * @return {ImageCharts}
+        */
+        public ImageCharts chco(String chco) {
+<span class="nc" id="L267">            return this.clone(&quot;chco&quot;, chco);</span>
+        }
+    
+        /**
+        * chart title
+        * [Reference documentation]{@link https://documentation.image-charts.com/reference/chart-title/}
+        * @example
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chtt(&quot;My beautiful chart&quot;);
+        * 
+        * @param {String} value - chart title
+        * @return {ImageCharts}
+        */
+        public ImageCharts chtt(String chtt) {
+<span class="nc" id="L280">            return this.clone(&quot;chtt&quot;, chtt);</span>
+        }
+    
+        /**
+        * Format should be &amp;#34;&amp;lt;color&amp;gt;,&amp;lt;font_size&amp;gt;[,&amp;lt;opt_alignment&amp;gt;,&amp;lt;opt_font_family&amp;gt;,&amp;lt;opt_font_style&amp;gt;]&amp;#34;, opt_alignement is not supported
+        * [Reference documentation]{@link https://documentation.image-charts.com/reference/chart-title/}
+        * @example
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chts(&quot;00FF00,17&quot;);
+        * 
+        * @param {String} value - chart title colors and font size
+        * @return {ImageCharts}
+        */
+        public ImageCharts chts(String chts) {
+<span class="nc" id="L293">            return this.clone(&quot;chts&quot;, chts);</span>
+        }
+    
+        /**
+        * Specify which axes you want (from: &amp;#34;x&amp;#34;, &amp;#34;y&amp;#34;, &amp;#34;t&amp;#34; and &amp;#34;r&amp;#34;). You can use several of them, separated by a coma; for example: &amp;#34;x,x,y,r&amp;#34;. Order is important.
+        * [Reference documentation]{@link https://documentation.image-charts.com/reference/chart-axis/#visible-axes}
+        * @example
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chxt(&quot;y&quot;);
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chxt(&quot;x,y&quot;);
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chxt(&quot;x,x,y&quot;);
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chxt(&quot;x,y,t,r,t&quot;);
+        * 
+        * @param {String} value - Display values on your axis lines or change which axes are shown
+        * @return {ImageCharts}
+        */
+        public ImageCharts chxt(String chxt) {
+<span class="nc" id="L309">            return this.clone(&quot;chxt&quot;, chxt);</span>
+        }
+    
+        /**
+        * Specify one parameter set for each axis that you want to label. Format &amp;#34;&amp;lt;axis_index&amp;gt;:|&amp;lt;label_1&amp;gt;|...|&amp;lt;label_n&amp;gt;|...|&amp;lt;axis_index&amp;gt;:|&amp;lt;label_1&amp;gt;|...|&amp;lt;label_n&amp;gt;&amp;#34;. Separate multiple sets of labels using the pipe character ( | ).
+        * [Reference documentation]{@link https://documentation.image-charts.com/reference/chart-axis/#custom-axis-labels}
+        * @example
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chxl(&quot;0:|Jan|July|Jan&quot;);
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chxl(&quot;0:|Jan|July|Jan|1|10|20|30&quot;);
+        * 
+        * @param {String} value - Custom string axis labels on any axis
+        * @return {ImageCharts}
+        */
+        public ImageCharts chxl(String chxl) {
+<span class="nc" id="L323">            return this.clone(&quot;chxl&quot;, chxl);</span>
+        }
+    
+        /**
+        * You can specify the range of values that appear on each axis independently, using the chxr parameter. Note that this does not change the scale of the chart elements (use chds for that), only the scale of the axis labels.
+        * [Reference documentation]{@link https://documentation.image-charts.com/reference/chart-axis/#axis-label-styles}
+        * @example
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chxs(&quot;1,0000DD&quot;);
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chxs(&quot;1N*cUSD*Mil,FF0000&quot;);
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chxs(&quot;1N*cEUR*,FF0000&quot;);
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chxs(&quot;2,0000DD,13,0,t&quot;);
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chxs(&quot;0N*p*per-month,0000FF&quot;);
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chxs(&quot;0N*e*,000000|1N*cUSD*Mil,FF0000|2N*2sz*,0000FF&quot;);
+        * 
+        * @param {String} value - Font size, color for axis labels, both custom labels and default label values
+        * @return {ImageCharts}
+        */
+        public ImageCharts chxs(String chxs) {
+<span class="nc" id="L341">            return this.clone(&quot;chxs&quot;, chxs);</span>
+        }
+    
+        /**
+        * 
+	* format should be either:
+	*   - line fills (fill the area below a data line with a solid color): chm=&amp;lt;b_or_B&amp;gt;,&amp;lt;color&amp;gt;,&amp;lt;start_line_index&amp;gt;,&amp;lt;end_line_index&amp;gt;,&amp;lt;0&amp;gt; |...| &amp;lt;b_or_B&amp;gt;,&amp;lt;color&amp;gt;,&amp;lt;start_line_index&amp;gt;,&amp;lt;end_line_index&amp;gt;,&amp;lt;0&amp;gt;
+	*   - line marker (add a line that traces data in your chart): chm=D,&amp;lt;color&amp;gt;,&amp;lt;series_index&amp;gt;,&amp;lt;which_points&amp;gt;,&amp;lt;width&amp;gt;,&amp;lt;opt_z_order&amp;gt;
+	*   - Text and Data Value Markers: chm=N&amp;lt;formatting_string&amp;gt;,&amp;lt;color&amp;gt;,&amp;lt;series_index&amp;gt;,&amp;lt;which_points&amp;gt;,&amp;lt;width&amp;gt;,&amp;lt;opt_z_order&amp;gt;,&amp;lt;font_family&amp;gt;,&amp;lt;font_style&amp;gt;
+	*     
+        * [Reference documentation]{@link https://documentation.image-charts.com/reference/compound-charts/}
+        * @example
+
+        * 
+        * @param {String} value - compound charts and line fills
+        * @return {ImageCharts}
+        */
+        public ImageCharts chm(String chm) {
+<span class="nc" id="L359">            return this.clone(&quot;chm&quot;, chm);</span>
+        }
+    
+        /**
+        * line thickness and solid/dashed style
+        * [Reference documentation]{@link https://documentation.image-charts.com/line-charts/#line-styles}
+        * @example
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chls(&quot;10&quot;);
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chls(&quot;3,6,3|5&quot;);
+        * 
+        * @param {String} value - line thickness and solid/dashed style
+        * @return {ImageCharts}
+        */
+        public ImageCharts chls(String chls) {
+<span class="nc" id="L373">            return this.clone(&quot;chls&quot;, chls);</span>
+        }
+    
+        /**
+        * If specified it will override &amp;#34;chdl&amp;#34; values
+        * [Reference documentation]{@link https://documentation.image-charts.com/reference/chart-label/}
+        * @example
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chl(&quot;label1|label2&quot;);
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chl(&quot;multi
+	* line
+	* label1|label2&quot;);
+        * 
+        * @param {String} value - bar, pie slice, doughnut slice and polar slice chart labels
+        * @return {ImageCharts}
+        */
+        public ImageCharts chl(String chl) {
+<span class="nc" id="L389">            return this.clone(&quot;chl&quot;, chl);</span>
+        }
+    
+        /**
+        * chart margins
+        * [Reference documentation]{@link https://documentation.image-charts.com/reference/chart-margin/}
+        * @example
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chma(&quot;30,30,30,30&quot;);
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chma(&quot;40,20&quot;);
+        * 
+        * @param {String} value - chart margins
+        * @return {ImageCharts}
+        */
+        public ImageCharts chma(String chma) {
+<span class="nc" id="L403">            return this.clone(&quot;chma&quot;, chma);</span>
+        }
+    
+        /**
+        * Position of the legend and order of the legend entries
+        * [Reference documentation]{@link https://documentation.image-charts.com/reference/legend-text-and-style/}
+        * @example
+
+        * @default &quot;r&quot;
+        * @param {String} value - Position of the legend and order of the legend entries
+        * @return {ImageCharts}
+        */
+        public ImageCharts chdlp(String chdlp) {
+<span class="nc" id="L416">            return this.clone(&quot;chdlp&quot;, chdlp);</span>
+        }
+    
+        /**
+        * Background Fills
+        * [Reference documentation]{@link https://documentation.image-charts.com/reference/background-fill/}
+        * @example
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chf(&quot;b0,lg,0,f44336,0.3,03a9f4,0.8&quot;);
+        * @default &quot;bg,s,FFFFFF&quot;
+        * @param {String} value - Background Fills
+        * @return {ImageCharts}
+        */
+        public ImageCharts chf(String chf) {
+<span class="nc" id="L429">            return this.clone(&quot;chf&quot;, chf);</span>
+        }
+    
+        /**
+        * gif configuration
+        * [Reference documentation]{@link https://documentation.image-charts.com/reference/animation/}
+        * @example
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chan(&quot;1200&quot;);
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chan(&quot;1300|easeInOutSine&quot;);
+        * 
+        * @param {String} value - gif configuration
+        * @return {ImageCharts}
+        */
+        public ImageCharts chan(String chan) {
+<span class="nc" id="L443">            return this.clone(&quot;chan&quot;, chan);</span>
+        }
+    
+        /**
+        * doughnut chart inside label
+        * [Reference documentation]{@link https://documentation.image-charts.com/pie-charts/#inside-label}
+        * @example
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chli(&quot;95K€&quot;);
+    * ImageCharts.Builder chart = new ImageCharts.Builder().chli(&quot;45%&quot;);
+        * 
+        * @param {String} value - doughnut chart inside label
+        * @return {ImageCharts}
+        */
+        public ImageCharts chli(String chli) {
+<span class="nc" id="L457">            return this.clone(&quot;chli&quot;, chli);</span>
+        }
+    
+        /**
+        * image-charts enterprise `account_id`
+        * [Reference documentation]{@link https://documentation.image-charts.com/enterprise/}
+        * @example
+    * ImageCharts.Builder chart = new ImageCharts.Builder().icac(&quot;accountId&quot;);
+        * 
+        * @param {String} value - image-charts enterprise `account_id`
+        * @return {ImageCharts}
+        */
+        public ImageCharts icac(String icac) {
+<span class="nc" id="L470">            return this.clone(&quot;icac&quot;, icac);</span>
+        }
+    
+        /**
+        * HMAC-SHA256 signature required to activate paid features
+        * [Reference documentation]{@link https://documentation.image-charts.com/enterprise/}
+        * @example
+    * ImageCharts.Builder chart = new ImageCharts.Builder().ichm(&quot;0785cf22a0381c2e0239e27c126de4181f501d117c2c81745611e9db928b0376&quot;);
+        * 
+        * @param {String} value - HMAC-SHA256 signature required to activate paid features
+        * @return {ImageCharts}
+        */
+        public ImageCharts ichm(String ichm) {
+<span class="nc" id="L483">            return this.clone(&quot;ichm&quot;, ichm);</span>
+        }
+    
+        /**
+        * How to use icff to define font family as Google Font : https://developers.google.com/fonts/docs/css2
+        * [Reference documentation]{@link https://documentation.image-charts.com/reference/chart-font/}
+        * @example
+    * ImageCharts.Builder chart = new ImageCharts.Builder().icff(&quot;Abel&quot;);
+    * ImageCharts.Builder chart = new ImageCharts.Builder().icff(&quot;Akronim&quot;);
+    * ImageCharts.Builder chart = new ImageCharts.Builder().icff(&quot;Alfa Slab One&quot;);
+        * 
+        * @param {String} value - Default font family for all text from Google Fonts. Use same syntax as Google Font CSS API
+        * @return {ImageCharts}
+        */
+        public ImageCharts icff(String icff) {
+<span class="nc" id="L498">            return this.clone(&quot;icff&quot;, icff);</span>
+        }
+    
+        /**
+        * Default font style for all text
+        * [Reference documentation]{@link https://documentation.image-charts.com/reference/chart-font/}
+        * @example
+    * ImageCharts.Builder chart = new ImageCharts.Builder().icfs(&quot;normal&quot;);
+    * ImageCharts.Builder chart = new ImageCharts.Builder().icfs(&quot;italic&quot;);
+        * 
+        * @param {String} value - Default font style for all text
+        * @return {ImageCharts}
+        */
+        public ImageCharts icfs(String icfs) {
+<span class="nc" id="L512">            return this.clone(&quot;icfs&quot;, icfs);</span>
+        }
+    
+        /**
+        * localization (ISO 639-1)
+        * [Reference documentation]{@link }
+        * @example
+    * ImageCharts.Builder chart = new ImageCharts.Builder().iclocale(&quot;en&quot;);
+        * 
+        * @param {String} value - localization (ISO 639-1)
+        * @return {ImageCharts}
+        */
+        public ImageCharts iclocale(String iclocale) {
+<span class="nc" id="L525">            return this.clone(&quot;iclocale&quot;, iclocale);</span>
+        }
+    
+        /**
+        * Retina is a marketing term coined by Apple that refers to devices and monitors that have a resolution and pixel density so high — roughly 300 or more pixels per inch – that a person is unable to discern the individual pixels at a normal viewing distance.
+	*           In order to generate beautiful charts for these Retina displays, Image-Charts supports a retina mode that can be activated through the icretina=1 parameter
+        * [Reference documentation]{@link https://documentation.image-charts.com/reference/retina/}
+        * @example
+    * ImageCharts.Builder chart = new ImageCharts.Builder().icretina(&quot;1&quot;);
+        * 
+        * @param {String} value - retina mode
+        * @return {ImageCharts}
+        */
+        public ImageCharts icretina(String icretina) {
+<span class="nc" id="L539">            return this.clone(&quot;icretina&quot;, icretina);</span>
+        }
+    
+
+    public String toURL() throws MalformedURLException, UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
+<span class="nc" id="L544">        StringBuilder queryParams = new StringBuilder();</span>
+<span class="nc" id="L545">        final Iterator&lt;Map.Entry&lt;String, Object&gt;&gt; it = this.query.entrySet().iterator();</span>
+<span class="nc bnc" id="L546" title="All 2 branches missed.">        while (it.hasNext()) {</span>
+<span class="nc" id="L547">            final Map.Entry&lt;String, Object&gt; entry = it.next();</span>
+<span class="nc" id="L548">            final String key = entry.getKey();</span>
+<span class="nc" id="L549">            queryParams.append(key);</span>
+<span class="nc" id="L550">            queryParams.append('=');</span>
+
+<span class="nc" id="L552">            final Object value = entry.getValue();</span>
+<span class="nc bnc" id="L553" title="All 2 branches missed.">            final String valueAsString = value != null ? URLEncoder.encode(value.toString(), DEFAULT_ENCODING) : &quot;&quot;;</span>
+<span class="nc" id="L554">            queryParams.append(valueAsString);</span>
+
+<span class="nc bnc" id="L556" title="All 2 branches missed.">            if (it.hasNext()) {</span>
+<span class="nc" id="L557">                queryParams.append('&amp;');</span>
+            }
+<span class="nc" id="L559">        }</span>
+
+<span class="nc bnc" id="L561" title="All 6 branches missed.">        if (query.containsKey(&quot;icac&quot;) &amp;&amp; this.secret != null &amp;&amp; this.secret.length() &gt; 0) {</span>
+<span class="nc" id="L562">            queryParams.append(&quot;&amp;ichm=&quot; + sign(secret, queryParams.toString()));</span>
+        }
+
+<span class="nc" id="L565">        URL url = new URL(this.protocol, this.host, this.port, this.pathname + &quot;?&quot; + queryParams.toString());</span>
+
+
+<span class="nc" id="L568">        return url.toString();</span>
+    }
+
+    public BufferedImage toBuffer() throws IOException, InvalidKeyException, NoSuchAlgorithmException {
+<span class="nc" id="L572">        URL url = new URL(this.toURL());</span>
+<span class="nc" id="L573">        HttpURLConnection connection = (HttpURLConnection) url.openConnection();</span>
+<span class="nc" id="L574">        connection.setConnectTimeout(this.timeout);</span>
+<span class="nc bnc" id="L575" title="All 2 branches missed.">        String userAccount = this.query.containsKey(&quot;icac&quot;) ? &quot; (&quot; + this.query.get(&quot;icac&quot;) + &quot;)&quot; : &quot;&quot;;</span>
+<span class="nc" id="L576">        connection.setRequestProperty(&quot;User-Agent&quot;, &quot;java-image-charts/1.0.0&quot; + userAccount);</span>
+<span class="nc" id="L577">        int status = connection.getResponseCode();</span>
+
+<span class="nc bnc" id="L579" title="All 4 branches missed.">        if (status &gt;= 200 &amp;&amp; status &lt; 300) {</span>
+<span class="nc" id="L580">            return ImageIO.read(connection.getInputStream());</span>
+        }
+
+<span class="nc" id="L583">        String validationMessage = connection.getHeaderField(&quot;x-ic-error-validation&quot;);</span>
+<span class="nc" id="L584">        String validationCode = connection.getHeaderField(&quot;x-ic-error-code&quot;);</span>
+<span class="nc" id="L585">        String message = &quot;&quot;;</span>
+
+<span class="nc bnc" id="L587" title="All 4 branches missed.">        if (validationMessage != null &amp;&amp; !validationMessage.isEmpty()) {</span>
+<span class="nc" id="L588">            JSONArray json = new JSONArray(new JSONTokener(validationMessage));</span>
+<span class="nc" id="L589">            JSONArray messageArray = new JSONArray();</span>
+<span class="nc bnc" id="L590" title="All 2 branches missed.">            for (Object x : json) {</span>
+<span class="nc" id="L591">                messageArray.put(((JSONObject) x).getString(&quot;message&quot;));</span>
+<span class="nc" id="L592">            }</span>
+<span class="nc" id="L593">            message = messageArray.join(&quot;\n&quot;);</span>
+        }
+
+<span class="nc bnc" id="L596" title="All 2 branches missed.">        message = !message.isEmpty() ? message : validationCode;</span>
+
+<span class="nc" id="L598">        throw new ImageChartsException(message);</span>
+    }
+
+    public String toDataURI() throws IOException, NoSuchAlgorithmException, InvalidKeyException {
+
+<span class="nc" id="L603">        BufferedImage image = toBuffer();</span>
+<span class="nc bnc" id="L604" title="All 2 branches missed.">        String formatName = this.query.containsKey(&quot;chan&quot;) ? &quot;gif&quot; : &quot;png&quot;;</span>
+<span class="nc" id="L605">        final ByteArrayOutputStream os = new ByteArrayOutputStream();</span>
+<span class="nc" id="L606">        ImageIO.write(image, &quot;png&quot;, os);</span>
+
+<span class="nc" id="L608">        return &quot;data:&quot; + &quot;image/&quot; + formatName + &quot;;base64,&quot; + new BASE64Encoder().encode(os.toByteArray());</span>
+    }
+
+    private static String sign(String key, String data) throws NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException {
+<span class="nc" id="L612">        Mac sha256_HMAC = Mac.getInstance(&quot;HmacSHA256&quot;);</span>
+<span class="nc" id="L613">        SecretKeySpec secret_key = new SecretKeySpec(key.getBytes(&quot;UTF-8&quot;), &quot;HmacSHA256&quot;);</span>
+<span class="nc" id="L614">        sha256_HMAC.init(secret_key);</span>
+
+<span class="nc" id="L616">        return bytesToHex(sha256_HMAC.doFinal(data.getBytes(&quot;UTF-8&quot;)));</span>
+    }
+
+    private static String bytesToHex(byte[] hash) {
+<span class="nc" id="L620">        StringBuffer hexString = new StringBuffer();</span>
+<span class="nc bnc" id="L621" title="All 2 branches missed.">        for (int i = 0; i &lt; hash.length; i++) {</span>
+<span class="nc" id="L622">            String hex = Integer.toHexString(0xff &amp; hash[i]);</span>
+<span class="nc bnc" id="L623" title="All 2 branches missed.">            if (hex.length() == 1) hexString.append('0');</span>
+<span class="nc" id="L624">            hexString.append(hex);</span>
+        }
+<span class="nc" id="L626">        return hexString.toString();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>
