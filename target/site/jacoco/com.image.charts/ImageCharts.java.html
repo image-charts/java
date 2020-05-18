@@ -26,27 +26,27 @@ public class ImageCharts {
     private static final String DEFAULT_ENCODING = &quot;UTF-8&quot;;
 
     private String secret;
-<span class="nc" id="L29">    private Integer timeout = 5000;</span>
-<span class="nc" id="L30">    private String host = &quot;image-charts.com&quot;;</span>
-<span class="nc" id="L31">    private String protocol = &quot;https&quot;;</span>
-<span class="nc" id="L32">    private Integer port = 443;</span>
-<span class="nc" id="L33">    private String pathname = &quot;/chart&quot;;</span>
-<span class="nc" id="L34">    private Map&lt;String, Object&gt; query = new HashMap();</span>
+<span class="fc" id="L29">    private Integer timeout = 5000;</span>
+<span class="fc" id="L30">    private String host = &quot;image-charts.com&quot;;</span>
+<span class="fc" id="L31">    private String protocol = &quot;https&quot;;</span>
+<span class="fc" id="L32">    private Integer port = 443;</span>
+<span class="fc" id="L33">    private String pathname = &quot;/chart&quot;;</span>
+<span class="fc" id="L34">    private Map&lt;String, Object&gt; query = new HashMap();</span>
 
     /**
      * Free usage
      **/
     public ImageCharts() {
-<span class="nc" id="L40">        this(null, null, null, null, null);</span>
-<span class="nc" id="L41">    }</span>
+<span class="fc" id="L40">        this(null, null, null, null, null);</span>
+<span class="fc" id="L41">    }</span>
 
     /**
     * Enterprise &amp; Enterprise+
     * @param secret  (Enterprise and Enterprise+ subscription only) SECRET_KEY. Default : null
     */
     public ImageCharts(String secret) {
-<span class="nc" id="L48">        this(secret, null);</span>
-<span class="nc" id="L49">    }</span>
+<span class="fc" id="L48">        this(secret, null);</span>
+<span class="fc" id="L49">    }</span>
 
     /**
     * Enterprise &amp; Enterprise+
@@ -54,8 +54,8 @@ public class ImageCharts {
     * @param timeout  Request timeout (in millisecond) when calling toBuffer() or toDataURI(). Default if null : 5000
     */
     public ImageCharts(String secret, Integer timeout) {
-<span class="nc" id="L57">        this(null, null, null, null, secret, timeout);</span>
-<span class="nc" id="L58">    }</span>
+<span class="fc" id="L57">        this(null, null, null, null, secret, timeout);</span>
+<span class="fc" id="L58">    }</span>
 
     /**
     * On-premise
@@ -66,8 +66,8 @@ public class ImageCharts {
     * @param secret  (Enterprise and Enterprise+ subscription only) SECRET_KEY. Default : null
     */
     public ImageCharts(String protocol, String host, Integer port, String pathname, String secret) {
-<span class="nc" id="L69">        this(protocol, host, port, pathname, secret, null);</span>
-<span class="nc" id="L70">    }</span>
+<span class="fc" id="L69">        this(protocol, host, port, pathname, secret, null);</span>
+<span class="fc" id="L70">    }</span>
 
     /**
     * On-premise
@@ -78,18 +78,18 @@ public class ImageCharts {
     * @param secret  (Enterprise and Enterprise+ subscription only) SECRET_KEY. Default : null
     * @param timeout  Request timeout (in millisecond) when calling toBuffer() or toDataURI(). Default if null : 5000
     */
-<span class="nc" id="L81">    public ImageCharts(String protocol, String host, Integer port, String pathname, String secret, Integer timeout) {</span>
-<span class="nc" id="L82">        this.secret = secret;</span>
-<span class="nc bnc" id="L83" title="All 2 branches missed.">        if (timeout != null) this.timeout = timeout;</span>
-<span class="nc bnc" id="L84" title="All 2 branches missed.">        if (host != null) this.host = host;</span>
-<span class="nc bnc" id="L85" title="All 2 branches missed.">        if (protocol != null) this.protocol = protocol;</span>
-<span class="nc bnc" id="L86" title="All 2 branches missed.">        if (port != null) this.port = port;</span>
-<span class="nc bnc" id="L87" title="All 2 branches missed.">        if (pathname != null) this.pathname = pathname;</span>
-<span class="nc" id="L88">    }</span>
+<span class="fc" id="L81">    public ImageCharts(String protocol, String host, Integer port, String pathname, String secret, Integer timeout) {</span>
+<span class="fc" id="L82">        this.secret = secret;</span>
+<span class="fc bfc" id="L83" title="All 2 branches covered.">        if (timeout != null) this.timeout = timeout;</span>
+<span class="fc bfc" id="L84" title="All 2 branches covered.">        if (host != null) this.host = host;</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">        if (protocol != null) this.protocol = protocol;</span>
+<span class="fc bfc" id="L86" title="All 2 branches covered.">        if (port != null) this.port = port;</span>
+<span class="fc bfc" id="L87" title="All 2 branches covered.">        if (pathname != null) this.pathname = pathname;</span>
+<span class="fc" id="L88">    }</span>
 
     private ImageCharts clone(String key, Object value) {
-<span class="nc" id="L91">        this.query.put(key, value);</span>
-<span class="nc" id="L92">        return this;</span>
+<span class="fc" id="L91">        this.query.put(key, value);</span>
+<span class="fc" id="L92">        return this;</span>
     }
 
     
@@ -106,7 +106,7 @@ public class ImageCharts {
         * @return {ImageCharts}
         */
         public ImageCharts cht(String cht) {
-<span class="nc" id="L109">            return this.clone(&quot;cht&quot;, cht);</span>
+<span class="fc" id="L109">            return this.clone(&quot;cht&quot;, cht);</span>
         }
     
         /**
@@ -122,7 +122,7 @@ public class ImageCharts {
         * @return {ImageCharts}
         */
         public ImageCharts chd(String chd) {
-<span class="nc" id="L125">            return this.clone(&quot;chd&quot;, chd);</span>
+<span class="fc" id="L125">            return this.clone(&quot;chd&quot;, chd);</span>
         }
     
         /**
@@ -205,7 +205,7 @@ public class ImageCharts {
         * @return {ImageCharts}
         */
         public ImageCharts chs(String chs) {
-<span class="nc" id="L208">            return this.clone(&quot;chs&quot;, chs);</span>
+<span class="fc" id="L208">            return this.clone(&quot;chs&quot;, chs);</span>
         }
     
         /**
@@ -440,7 +440,7 @@ public class ImageCharts {
         * @return {ImageCharts}
         */
         public ImageCharts chan(String chan) {
-<span class="nc" id="L443">            return this.clone(&quot;chan&quot;, chan);</span>
+<span class="fc" id="L443">            return this.clone(&quot;chan&quot;, chan);</span>
         }
     
         /**
@@ -467,7 +467,7 @@ public class ImageCharts {
         * @return {ImageCharts}
         */
         public ImageCharts icac(String icac) {
-<span class="nc" id="L470">            return this.clone(&quot;icac&quot;, icac);</span>
+<span class="fc" id="L470">            return this.clone(&quot;icac&quot;, icac);</span>
         }
     
         /**
@@ -541,89 +541,89 @@ public class ImageCharts {
     
 
     public String toURL() throws MalformedURLException, UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
-<span class="nc" id="L544">        StringBuilder queryParams = new StringBuilder();</span>
-<span class="nc" id="L545">        final Iterator&lt;Map.Entry&lt;String, Object&gt;&gt; it = this.query.entrySet().iterator();</span>
-<span class="nc bnc" id="L546" title="All 2 branches missed.">        while (it.hasNext()) {</span>
-<span class="nc" id="L547">            final Map.Entry&lt;String, Object&gt; entry = it.next();</span>
-<span class="nc" id="L548">            final String key = entry.getKey();</span>
-<span class="nc" id="L549">            queryParams.append(key);</span>
-<span class="nc" id="L550">            queryParams.append('=');</span>
+<span class="fc" id="L544">        StringBuilder queryParams = new StringBuilder();</span>
+<span class="fc" id="L545">        final Iterator&lt;Map.Entry&lt;String, Object&gt;&gt; it = this.query.entrySet().iterator();</span>
+<span class="fc bfc" id="L546" title="All 2 branches covered.">        while (it.hasNext()) {</span>
+<span class="fc" id="L547">            final Map.Entry&lt;String, Object&gt; entry = it.next();</span>
+<span class="fc" id="L548">            final String key = entry.getKey();</span>
+<span class="fc" id="L549">            queryParams.append(key);</span>
+<span class="fc" id="L550">            queryParams.append('=');</span>
 
-<span class="nc" id="L552">            final Object value = entry.getValue();</span>
-<span class="nc bnc" id="L553" title="All 2 branches missed.">            final String valueAsString = value != null ? URLEncoder.encode(value.toString(), DEFAULT_ENCODING) : &quot;&quot;;</span>
-<span class="nc" id="L554">            queryParams.append(valueAsString);</span>
+<span class="fc" id="L552">            final Object value = entry.getValue();</span>
+<span class="pc bpc" id="L553" title="1 of 2 branches missed.">            final String valueAsString = value != null ? URLEncoder.encode(value.toString(), DEFAULT_ENCODING) : &quot;&quot;;</span>
+<span class="fc" id="L554">            queryParams.append(valueAsString);</span>
 
-<span class="nc bnc" id="L556" title="All 2 branches missed.">            if (it.hasNext()) {</span>
-<span class="nc" id="L557">                queryParams.append('&amp;');</span>
+<span class="fc bfc" id="L556" title="All 2 branches covered.">            if (it.hasNext()) {</span>
+<span class="fc" id="L557">                queryParams.append('&amp;');</span>
             }
-<span class="nc" id="L559">        }</span>
+<span class="fc" id="L559">        }</span>
 
-<span class="nc bnc" id="L561" title="All 6 branches missed.">        if (query.containsKey(&quot;icac&quot;) &amp;&amp; this.secret != null &amp;&amp; this.secret.length() &gt; 0) {</span>
-<span class="nc" id="L562">            queryParams.append(&quot;&amp;ichm=&quot; + sign(secret, queryParams.toString()));</span>
+<span class="pc bpc" id="L561" title="1 of 6 branches missed.">        if (query.containsKey(&quot;icac&quot;) &amp;&amp; this.secret != null &amp;&amp; this.secret.length() &gt; 0) {</span>
+<span class="fc" id="L562">            queryParams.append(&quot;&amp;ichm=&quot; + sign(secret, queryParams.toString()));</span>
         }
 
-<span class="nc" id="L565">        URL url = new URL(this.protocol, this.host, this.port, this.pathname + &quot;?&quot; + queryParams.toString());</span>
+<span class="fc" id="L565">        URL url = new URL(this.protocol, this.host, this.port, this.pathname + &quot;?&quot; + queryParams.toString());</span>
 
 
-<span class="nc" id="L568">        return url.toString();</span>
+<span class="fc" id="L568">        return url.toString();</span>
     }
 
     public BufferedImage toBuffer() throws IOException, InvalidKeyException, NoSuchAlgorithmException {
-<span class="nc" id="L572">        URL url = new URL(this.toURL());</span>
-<span class="nc" id="L573">        HttpURLConnection connection = (HttpURLConnection) url.openConnection();</span>
-<span class="nc" id="L574">        connection.setConnectTimeout(this.timeout);</span>
-<span class="nc bnc" id="L575" title="All 2 branches missed.">        String userAccount = this.query.containsKey(&quot;icac&quot;) ? &quot; (&quot; + this.query.get(&quot;icac&quot;) + &quot;)&quot; : &quot;&quot;;</span>
-<span class="nc" id="L576">        connection.setRequestProperty(&quot;User-Agent&quot;, &quot;java-image-charts/1.0.0&quot; + userAccount);</span>
-<span class="nc" id="L577">        int status = connection.getResponseCode();</span>
+<span class="fc" id="L572">        URL url = new URL(this.toURL());</span>
+<span class="fc" id="L573">        HttpURLConnection connection = (HttpURLConnection) url.openConnection();</span>
+<span class="fc" id="L574">        connection.setConnectTimeout(this.timeout);</span>
+<span class="fc bfc" id="L575" title="All 2 branches covered.">        String userAccount = this.query.containsKey(&quot;icac&quot;) ? &quot; (&quot; + this.query.get(&quot;icac&quot;) + &quot;)&quot; : &quot;&quot;;</span>
+<span class="fc" id="L576">        connection.setRequestProperty(&quot;User-Agent&quot;, &quot;java-image-charts/1.0.0&quot; + userAccount);</span>
+<span class="fc" id="L577">        int status = connection.getResponseCode();</span>
 
-<span class="nc bnc" id="L579" title="All 4 branches missed.">        if (status &gt;= 200 &amp;&amp; status &lt; 300) {</span>
-<span class="nc" id="L580">            return ImageIO.read(connection.getInputStream());</span>
+<span class="pc bpc" id="L579" title="1 of 4 branches missed.">        if (status &gt;= 200 &amp;&amp; status &lt; 300) {</span>
+<span class="fc" id="L580">            return ImageIO.read(connection.getInputStream());</span>
         }
 
-<span class="nc" id="L583">        String validationMessage = connection.getHeaderField(&quot;x-ic-error-validation&quot;);</span>
-<span class="nc" id="L584">        String validationCode = connection.getHeaderField(&quot;x-ic-error-code&quot;);</span>
-<span class="nc" id="L585">        String message = &quot;&quot;;</span>
+<span class="fc" id="L583">        String validationMessage = connection.getHeaderField(&quot;x-ic-error-validation&quot;);</span>
+<span class="fc" id="L584">        String validationCode = connection.getHeaderField(&quot;x-ic-error-code&quot;);</span>
+<span class="fc" id="L585">        String message = &quot;&quot;;</span>
 
-<span class="nc bnc" id="L587" title="All 4 branches missed.">        if (validationMessage != null &amp;&amp; !validationMessage.isEmpty()) {</span>
-<span class="nc" id="L588">            JSONArray json = new JSONArray(new JSONTokener(validationMessage));</span>
-<span class="nc" id="L589">            JSONArray messageArray = new JSONArray();</span>
-<span class="nc bnc" id="L590" title="All 2 branches missed.">            for (Object x : json) {</span>
-<span class="nc" id="L591">                messageArray.put(((JSONObject) x).getString(&quot;message&quot;));</span>
-<span class="nc" id="L592">            }</span>
-<span class="nc" id="L593">            message = messageArray.join(&quot;\n&quot;);</span>
+<span class="pc bpc" id="L587" title="1 of 4 branches missed.">        if (validationMessage != null &amp;&amp; !validationMessage.isEmpty()) {</span>
+<span class="fc" id="L588">            JSONArray json = new JSONArray(new JSONTokener(validationMessage));</span>
+<span class="fc" id="L589">            JSONArray messageArray = new JSONArray();</span>
+<span class="fc bfc" id="L590" title="All 2 branches covered.">            for (Object x : json) {</span>
+<span class="fc" id="L591">                messageArray.put(((JSONObject) x).getString(&quot;message&quot;));</span>
+<span class="fc" id="L592">            }</span>
+<span class="fc" id="L593">            message = messageArray.join(&quot;\n&quot;);</span>
         }
 
-<span class="nc bnc" id="L596" title="All 2 branches missed.">        message = !message.isEmpty() ? message : validationCode;</span>
+<span class="fc bfc" id="L596" title="All 2 branches covered.">        message = !message.isEmpty() ? message : validationCode;</span>
 
-<span class="nc" id="L598">        throw new ImageChartsException(message);</span>
+<span class="fc" id="L598">        throw new ImageChartsException(message);</span>
     }
 
     public String toDataURI() throws IOException, NoSuchAlgorithmException, InvalidKeyException {
 
-<span class="nc" id="L603">        BufferedImage image = toBuffer();</span>
-<span class="nc bnc" id="L604" title="All 2 branches missed.">        String formatName = this.query.containsKey(&quot;chan&quot;) ? &quot;gif&quot; : &quot;png&quot;;</span>
-<span class="nc" id="L605">        final ByteArrayOutputStream os = new ByteArrayOutputStream();</span>
-<span class="nc" id="L606">        ImageIO.write(image, &quot;png&quot;, os);</span>
+<span class="fc" id="L603">        BufferedImage image = toBuffer();</span>
+<span class="fc bfc" id="L604" title="All 2 branches covered.">        String formatName = this.query.containsKey(&quot;chan&quot;) ? &quot;gif&quot; : &quot;png&quot;;</span>
+<span class="fc" id="L605">        final ByteArrayOutputStream os = new ByteArrayOutputStream();</span>
+<span class="fc" id="L606">        ImageIO.write(image, &quot;png&quot;, os);</span>
 
-<span class="nc" id="L608">        return &quot;data:&quot; + &quot;image/&quot; + formatName + &quot;;base64,&quot; + new BASE64Encoder().encode(os.toByteArray());</span>
+<span class="fc" id="L608">        return &quot;data:&quot; + &quot;image/&quot; + formatName + &quot;;base64,&quot; + new BASE64Encoder().encode(os.toByteArray());</span>
     }
 
     private static String sign(String key, String data) throws NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException {
-<span class="nc" id="L612">        Mac sha256_HMAC = Mac.getInstance(&quot;HmacSHA256&quot;);</span>
-<span class="nc" id="L613">        SecretKeySpec secret_key = new SecretKeySpec(key.getBytes(&quot;UTF-8&quot;), &quot;HmacSHA256&quot;);</span>
-<span class="nc" id="L614">        sha256_HMAC.init(secret_key);</span>
+<span class="fc" id="L612">        Mac sha256_HMAC = Mac.getInstance(&quot;HmacSHA256&quot;);</span>
+<span class="fc" id="L613">        SecretKeySpec secret_key = new SecretKeySpec(key.getBytes(&quot;UTF-8&quot;), &quot;HmacSHA256&quot;);</span>
+<span class="fc" id="L614">        sha256_HMAC.init(secret_key);</span>
 
-<span class="nc" id="L616">        return bytesToHex(sha256_HMAC.doFinal(data.getBytes(&quot;UTF-8&quot;)));</span>
+<span class="fc" id="L616">        return bytesToHex(sha256_HMAC.doFinal(data.getBytes(&quot;UTF-8&quot;)));</span>
     }
 
     private static String bytesToHex(byte[] hash) {
-<span class="nc" id="L620">        StringBuffer hexString = new StringBuffer();</span>
-<span class="nc bnc" id="L621" title="All 2 branches missed.">        for (int i = 0; i &lt; hash.length; i++) {</span>
-<span class="nc" id="L622">            String hex = Integer.toHexString(0xff &amp; hash[i]);</span>
-<span class="nc bnc" id="L623" title="All 2 branches missed.">            if (hex.length() == 1) hexString.append('0');</span>
-<span class="nc" id="L624">            hexString.append(hex);</span>
+<span class="fc" id="L620">        StringBuffer hexString = new StringBuffer();</span>
+<span class="fc bfc" id="L621" title="All 2 branches covered.">        for (int i = 0; i &lt; hash.length; i++) {</span>
+<span class="fc" id="L622">            String hex = Integer.toHexString(0xff &amp; hash[i]);</span>
+<span class="fc bfc" id="L623" title="All 2 branches covered.">            if (hex.length() == 1) hexString.append('0');</span>
+<span class="fc" id="L624">            hexString.append(hex);</span>
         }
-<span class="nc" id="L626">        return hexString.toString();</span>
+<span class="fc" id="L626">        return hexString.toString();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>
