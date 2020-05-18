@@ -573,7 +573,7 @@ public class ImageCharts {
 <span class="fc" id="L573">        HttpURLConnection connection = (HttpURLConnection) url.openConnection();</span>
 <span class="fc" id="L574">        connection.setConnectTimeout(this.timeout);</span>
 <span class="fc bfc" id="L575" title="All 2 branches covered.">        String userAccount = this.query.containsKey(&quot;icac&quot;) ? &quot; (&quot; + this.query.get(&quot;icac&quot;) + &quot;)&quot; : &quot;&quot;;</span>
-<span class="fc" id="L576">        connection.setRequestProperty(&quot;User-Agent&quot;, &quot;java-image-charts/1.0.0&quot; + userAccount);</span>
+<span class="fc" id="L576">        connection.setRequestProperty(&quot;User-Agent&quot;, &quot;java-image-charts/1.0.1&quot; + userAccount);</span>
 <span class="fc" id="L577">        int status = connection.getResponseCode();</span>
 
 <span class="pc bpc" id="L579" title="1 of 4 branches missed.">        if (status &gt;= 200 &amp;&amp; status &lt; 300) {</span>
