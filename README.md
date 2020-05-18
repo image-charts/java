@@ -81,7 +81,7 @@ pie.toBuffer(); // BufferedImage
 Requirements: Java 6+
 
 To add dependency using Maven:
-````xml
+```xml
 <dependency>
     <groupId>com.image-charts</groupId>
     <artifactId>image-charts</artifactId>

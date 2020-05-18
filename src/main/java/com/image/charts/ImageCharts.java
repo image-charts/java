@@ -573,7 +573,7 @@ public class ImageCharts {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setConnectTimeout(this.timeout);
         String userAccount = this.query.containsKey("icac") ? " (" + this.query.get("icac") + ")" : "";
-        connection.setRequestProperty("User-Agent", "java-image-charts/1.0.0" + userAccount);
+        connection.setRequestProperty("User-Agent", "java-image-charts/1.0.1" + userAccount);
         int status = connection.getResponseCode();
 
         if (status >= 200 && status < 300) {
