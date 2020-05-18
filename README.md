@@ -1,6 +1,6 @@
 ## Official [image-charts](https://image-charts.com/) Java library
 
-[![Maven Central](http://img.shields.io/maven-central/v/com.image.charts/image-charts.svg?style=flat)](https://mvnrepository.com/artifact/com.image.charts/image-charts)
+[![Maven Central](http://img.shields.io/maven-central/v/com.image-charts/image-charts.svg?style=flat)](https://mvnrepository.com/artifact/com.image-charts/image-charts)
 <!--[![maintainability](https://api.codeclimate.com/v1/badges/8ae1208964cbea39150a/maintainability)](https://codeclimate.com/github/image-charts/java/maintainability)-->
 <!--[![test coverage](https://api.codeclimate.com/v1/badges/8ae1208964cbea39150a/test_coverage)](https://codeclimate.com/github/image-charts/java/test_coverage)-->
 
@@ -83,7 +83,7 @@ Requirements: Java 6+
 To add dependency using Maven:
 ````xml
 <dependency>
-    <groupId>com.image.charts</groupId>
+    <groupId>com.image-charts</groupId>
     <artifactId>image-charts</artifactId>
 </dependency>
 ```
@@ -91,7 +91,7 @@ To add dependency using Maven:
 To add dependency using Gradle:
 ```gradle
 dependencies {
-    implementation 'com.image.charts:image-charts:VERSION'
+    implementation 'com.image-charts:image-charts:VERSION'
 }
 ```
 
