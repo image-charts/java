@@ -76,7 +76,7 @@ pie.toBuffer(); // BufferedImage
 
 ### Install
 
-[![Maven Central](http://img.shields.io/maven-central/v/com.image.charts/imagecharts.svg?style=flat)](https://mvnrepository.com/artifact/com.image.charts/imagecharts)
+[![Maven Central](http://img.shields.io/maven-central/v/com.image-charts/image-charts.svg?style=flat)](https://mvnrepository.com/artifact/com.image-charts/image-charts)
 
 Requirements: Java 6+
 
