@@ -6,7 +6,7 @@
 
     <groupId>com.image-charts</groupId>
     <artifactId>image-charts</artifactId>
-    <version>1.0.6</version>
+    <version>1.0.7</version>
 
     <name>Image-Charts</name>
     <description>Official Image-Charts.com API client library</description>
@@ -22,6 +22,11 @@
             <url>http://www.opensource.org/licenses/mit-license.php</url>
         </license>
     </licenses>
+
+    <organization>
+        <name>Image-Charts</name>
+        <url>https://www.image-charts.com</url>
+    </organization>
 
     <developers>
         <developer>
