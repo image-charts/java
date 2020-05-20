@@ -3,7 +3,7 @@ package com.image.charts;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
-
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
@@ -82,6 +82,14 @@ public class ImageChartsTest {
     void toBufferWorks() throws NoSuchAlgorithmException, InvalidKeyException, IOException {
         new ImageCharts()
                 .cht("p").chd("t:1,2,3").chs("100x100").toBuffer();
+    }
+
+    @Test
+    @DisplayName("toFile - works")
+    void toFileWorks() throws NoSuchAlgorithmException, InvalidKeyException, IOException {
+      new ImageCharts()
+        .cht("p").chd("t:1,2,3").chs("100x100").toFile("/app/.cache/plop.png");
+      assertTrue(new File("/app/.cache/plop.png").exists());
     }
 
     @Test

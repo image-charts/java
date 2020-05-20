@@ -8,60 +8,86 @@ Official [Image Charts](https://image-charts.com/) API client.
 Generate URLs of static image charts.
 Embed them everywhere in emails, pdf reports, chat bots...!
 
-### Table of Contents
-
-- __[Usage](#usage)__
-- __[Install](#install)__
+- __[Getting started](#getting-started)__
 - __[Enterprise support](#enterprise-support)__
 - __[On-Premise support](#on-premise-support)__
 - __[Constructor](#constructor)__
-- __[Options](#options)__
+    - __[Options](#options)__
 - __[Methods](#methods)__
-- __[toURL()](#tourl)__
-- __[toBuffer()](#tobuffer)__
-- __[toDataURI()](#todatauri)__
-    - __[cht(value) - Chart type](#cht)__
-    - __[chd(value) - chart data](#chd)__
-    - __[chds(value) - data format with custom scaling](#chds)__
-    - __[choe(value) - QRCode data encoding](#choe)__
-    - __[chld(value) - QRCode error correction level and optional margin](#chld)__
-    - __[chxr(value) - Axis data-range](#chxr)__
-    - __[chof(value) - Output fake format](#chof)__
-    - __[chs(value) - Chart size (&lt;width&gt;x&lt;height&gt;)](#chs)__
-    - __[chdl(value) - Text for each series, to display in the legend](#chdl)__
-    - __[chdls(value) - Chart legend text and style](#chdls)__
-    - __[chg(value) - Solid or dotted grid lines](#chg)__
-    - __[chco(value) - series colors](#chco)__
-    - __[chtt(value) - chart title](#chtt)__
-    - __[chts(value) - chart title colors and font size](#chts)__
-    - __[chxt(value) - Display values on your axis lines or change which axes are shown](#chxt)__
-    - __[chxl(value) - Custom string axis labels on any axis](#chxl)__
-    - __[chxs(value) - Font size, color for axis labels, both custom labels and default label values](#chxs)__
-    - __[chm(value) - compound charts and line fills](#chm)__
-    - __[chls(value) - line thickness and solid/dashed style](#chls)__
-    - __[chl(value) - bar, pie slice, doughnut slice and polar slice chart labels](#chl)__
-    - __[chma(value) - chart margins](#chma)__
-    - __[chdlp(value) - Position of the legend and order of the legend entries](#chdlp)__
-    - __[chf(value) - Background Fills](#chf)__
-    - __[chan(value) - gif configuration](#chan)__
-    - __[chli(value) - doughnut chart inside label](#chli)__
-    - __[icac(value) - image-charts enterprise `account_id`](#icac)__
-    - __[ichm(value) - HMAC-SHA256 signature required to activate paid features](#ichm)__
-    - __[icff(value) - Default font family for all text from Google Fonts. Use same syntax as Google Font CSS API](#icff)__
-    - __[icfs(value) - Default font style for all text](#icfs)__
-    - __[iclocale(value) - localization (ISO 639-1)](#iclocale)__
-    - __[icretina(value) - retina mode](#icretina)__
+    - __[toURL()](#tourl)__
+    - __[toFile()](#tofile)__
+    - __[toBuffer()](#tobuffer)__
+    - __[toDataURI()](#todatauri)__
+        - __[cht(value) - Chart type](#cht)__
+        - __[chd(value) - chart data](#chd)__
+        - __[chds(value) - data format with custom scaling](#chds)__
+        - __[choe(value) - QRCode data encoding](#choe)__
+        - __[chld(value) - QRCode error correction level and optional margin](#chld)__
+        - __[chxr(value) - Axis data-range](#chxr)__
+        - __[chof(value) - Output fake format](#chof)__
+        - __[chs(value) - Chart size (&lt;width&gt;x&lt;height&gt;)](#chs)__
+        - __[chdl(value) - Text for each series, to display in the legend](#chdl)__
+        - __[chdls(value) - Chart legend text and style](#chdls)__
+        - __[chg(value) - Solid or dotted grid lines](#chg)__
+        - __[chco(value) - series colors](#chco)__
+        - __[chtt(value) - chart title](#chtt)__
+        - __[chts(value) - chart title colors and font size](#chts)__
+        - __[chxt(value) - Display values on your axis lines or change which axes are shown](#chxt)__
+        - __[chxl(value) - Custom string axis labels on any axis](#chxl)__
+        - __[chxs(value) - Font size, color for axis labels, both custom labels and default label values](#chxs)__
+        - __[chm(value) - compound charts and line fills](#chm)__
+        - __[chls(value) - line thickness and solid/dashed style](#chls)__
+        - __[chl(value) - bar, pie slice, doughnut slice and polar slice chart labels](#chl)__
+        - __[chma(value) - chart margins](#chma)__
+        - __[chdlp(value) - Position of the legend and order of the legend entries](#chdlp)__
+        - __[chf(value) - Background Fills](#chf)__
+        - __[chan(value) - gif configuration](#chan)__
+        - __[chli(value) - doughnut chart inside label](#chli)__
+        - __[icac(value) - image-charts enterprise `account_id`](#icac)__
+        - __[ichm(value) - HMAC-SHA256 signature required to activate paid features](#ichm)__
+        - __[icff(value) - Default font family for all text from Google Fonts. Use same syntax as Google Font CSS API](#icff)__
+        - __[icfs(value) - Default font style for all text](#icfs)__
+        - __[iclocale(value) - localization (ISO 639-1)](#iclocale)__
+        - __[icretina(value) - retina mode](#icretina)__
 
 -----------------------------------------------------------------------
 
-### Usage
+### Getting started
+
+#### 1. Add Image-Charts to your project
+
+[![Maven Central](http://img.shields.io/maven-central/v/com.image-charts/image-charts.svg?style=flat)](https://mvnrepository.com/artifact/com.image-charts/image-charts)
+
+Requirements: Java 6+
+
+Maven:
+```xml
+<dependency>
+    <groupId>com.image-charts</groupId>
+    <artifactId>image-charts</artifactId>
+</dependency>
+```
+
+Gradle:
+```gradle
+dependencies {
+implementation 'com.image-charts:image-charts:VERSION'
+}
+```
+
+#### 2. Import Image-Charts library
 
 ```java
 import com.image.charts.ImageCharts;
+```
 
+#### 3. Generate a chart image
+
+```java
 ImageCharts pie = new ImageCharts().cht("p").chd("a:2.5,5,8.3").chs("100x100");
 
 pie.toURL(); // https://image-charts.com/chart?chd=a%3A2.5%2C5%2C8.3&chs=600x300&cht=p
+pie.toFile('/path/to/chart.png'); //
 pie.toDataURI(); // data:image/png;base64,iVBORw0KGgo...
 pie.toBuffer(); // BufferedImage
 ```
@@ -72,28 +98,6 @@ pie.toBuffer(); // BufferedImage
     </a>
 </p>
 
------------------------------------------------------------------------
-
-### Install
-
-[![Maven Central](http://img.shields.io/maven-central/v/com.image-charts/image-charts.svg?style=flat)](https://mvnrepository.com/artifact/com.image-charts/image-charts)
-
-Requirements: Java 6+
-
-To add dependency using Maven:
-```xml
-<dependency>
-    <groupId>com.image-charts</groupId>
-    <artifactId>image-charts</artifactId>
-</dependency>
-```
-
-To add dependency using Gradle:
-```gradle
-dependencies {
-    implementation 'com.image-charts:image-charts:VERSION'
-}
-```
 
 ----------------------------------------------------------------------------------------------
 
@@ -108,20 +112,20 @@ dependencies {
 public ImageCharts()
 
 /**
-* Enterprise & Enterprise+
+* Enterprise & Enterprise+ subscriptions
 * @param secret  (Enterprise and Enterprise+ subscription only) SECRET_KEY. Default : null
 */
 public ImageCharts(String secret)
 
 /**
-* Enterprise & Enterprise+
+* Enterprise & Enterprise+ subscriptions
 * @param secret  (Enterprise and Enterprise+ subscription only) SECRET_KEY. Default : null
 * @param timeout  Request timeout (in millisecond) when calling toBuffer() or toDataURI(). Default if null : 5000
 */
 public ImageCharts(String secret, Integer timeout)
 
 /**
-* On-premise
+* On-premise subscriptions
 * @param protocol  (On-Premise subscription only) custom protocol. Default if null : "https"
 * @param host  (Enterprise, Enterprise+ and On-Premise subscription only) custom domain. Default if null : "image-charts.com"
 * @param port  (On-Premise subscription only) custom port. Default if null "443"
