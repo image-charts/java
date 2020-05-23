@@ -541,6 +541,15 @@ public class ImageCharts {
     }
     
 
+    /**
+     * Get the full Image-Charts API url (signed and encoded if necessary)
+     *
+     * @return {String} full generated url
+     * @throws MalformedURLException
+     * @throws UnsupportedEncodingException
+     * @throws NoSuchAlgorithmException
+     * @throws InvalidKeyException
+     */
     public String toURL() throws MalformedURLException, UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
         StringBuilder queryParams = new StringBuilder();
         final Iterator<Map.Entry<String, Object>> it = this.query.entrySet().iterator();
@@ -569,6 +578,14 @@ public class ImageCharts {
         return url.toString();
     }
 
+    /**
+     * Do a request to Image-Charts API with current configuration and yield a BufferedImage
+     *
+     * @return {BufferedImage}
+     * @throws IOException
+     * @throws InvalidKeyException
+     * @throws NoSuchAlgorithmException
+     */
     public BufferedImage toBuffer() throws IOException, InvalidKeyException, NoSuchAlgorithmException {
         URL url = new URL(this.toURL());
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -603,10 +620,25 @@ public class ImageCharts {
         return this.query.containsKey("chan") ? "gif" : "png";
     }
 
+    /**
+     * Do a request to Image-Charts API with current configuration and writes the content inside a file
+     * @param file_path
+     * @throws IOException
+     * @throws InvalidKeyException
+     * @throws NoSuchAlgorithmException
+     */
     public void toFile(String file_path) throws IOException, InvalidKeyException, NoSuchAlgorithmException{
         ImageIO.write(this.toBuffer(), this.getFileFormat(), new File(file_path));
     }
 
+    /**
+     * Do a request to Image-Charts API with current configuration and yield a promise of a base64 encoded [data URI](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs)
+     *
+     * @return {String} base64 data URI wrapped inside a promise
+     * @throws IOException
+     * @throws NoSuchAlgorithmException
+     * @throws InvalidKeyException
+     */
     public String toDataURI() throws IOException, NoSuchAlgorithmException, InvalidKeyException {
 
         BufferedImage image = toBuffer();

@@ -163,15 +163,64 @@ public ImageCharts(String protocol, String host, Integer port, String pathname, 
 ##### Usage
 
 ```java
-import com.image.charts.ImageCharts;
+import <%= pkg.java.name %>.ImageCharts;
 
-String chartUrl = new ImageCharts()
-.cht("bvg") // vertical bar chart
-.chs("300x300") // 300px x 300px
-.chd("a:60,40") // 2 data points: 60 and 40
-.toURL(); // get the generated URL
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 
-System.out.println(chartUrl); // https://image-charts.com/chart?cht=bvg&chs=300x300&chd=a%3A60%2C40
+public class GenerateChartUrl {
+    public static void main(String[] args) throws MalformedURLException, NoSuchAlgorithmException, InvalidKeyException, UnsupportedEncodingException {
+        String chartUrl = new ImageCharts()
+                .cht("bvg") // vertical bar chart
+                .chs("300x300") // 300px x 300px
+                .chd("a:60,40") // 2 data points: 60 and 40
+                .toURL(); // get the generated URL
+
+        System.out.println(chartUrl); // https://image-charts.com/chart?cht=bvg&chs=300x300&chd=a%3A60%2C40
+    }
+}
+
+```
+
+- _[Back to Getting started](#getting-started)_
+- _[Back to ToC](#table-of-contents)_
+
+----------------------------------------------------------------------------------------------
+
+<a name="toFile"></a>
+#### `toFile(file)` : `Promise<()>`
+
+> Creates a file containing generated chart image and yield a promise.
+
+> When `file` is a filename, asynchronously writes data to the file, replacing the file if it already exists.
+> When `file` is a file descriptor, the behavior is similar to calling fs.write() directly (which is recommended).
+
+##### Usage
+
+```java
+import <%= pkg.java.name %>.ImageCharts;
+
+import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+
+public class DownloadChartAsImage {
+    public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeyException, IOException {
+        String chartPath = "/tmp/chart.png";
+
+        new ImageCharts()
+                .cht("bvg") // vertical bar chart
+                .chs("300x300") // 300px x 300px
+                .chd("a:60,40") // 2 data points: 60 and 40
+                .toFile(chartPath);
+
+        System.out.println("Image chart written at " + chartPath);
+    }
+}
+
+
 ```
 
 - _[Back to Getting started](#getting-started)_
@@ -187,15 +236,25 @@ System.out.println(chartUrl); // https://image-charts.com/chart?cht=bvg&chs=300x
 ##### Usage
 
 ```java
-import com.image.charts.ImageCharts;
+import <%= pkg.java.name %>.ImageCharts;
 
-BufferedImage chartUrl = new ImageCharts()
-.cht("bvg") // vertical bar chart
-.chs("300x300") // 300px x 300px
-.chd("a:60,40") // 2 data points: 60 and 40
-.toBuffer(); // download chart image
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 
-System.out.println(chartUrl); // BufferedImage
+public class DownloadChartAsBuffer {
+    public static void main(String[] args) throws IOException, NoSuchAlgorithmException, InvalidKeyException {
+        BufferedImage chartUrl = new ImageCharts()
+                .cht("bvg") // vertical bar chart
+                .chs("300x300") // 300px x 300px
+                .chd("a:60,40") // 2 data points: 60 and 40
+                .toBuffer();
+
+        System.out.println(chartUrl); // "BufferedImage@...
+    }
+}
+
 ```
 
 - _[Back to Getting started](#getting-started)_
@@ -206,20 +265,31 @@ System.out.println(chartUrl); // BufferedImage
 <a name="todatauri"></a>
 #### `toDataURI()` : `String`
 
-> Do a request to Image-Charts API with current configuration and yield a promise of a base84 encoded [data URI](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs)
+> Do a request to Image-Charts API with current configuration and yield a promise of a base64 encoded [data URI](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs)
 
 ##### Usage
 
 ```java
-import com.image.charts.ImageCharts;
+import <%= pkg.java.name %>.ImageCharts;
 
-String chartUrl = new ImageCharts()
-.cht("bvg") // vertical bar chart
-.chs("300x300") // 300px x 300px
-.chd("a:60,40") // 2 data points: 60 and 40
-.toDataURI(); // download chart image and generate data URI
+import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 
-System.out.println(chartUrl); // data:image/png;base64,iVBORw0KGgo...
+public class DownloadChartAsDataUri {
+    public static void main(String[] args) throws MalformedURLException, NoSuchAlgorithmException, InvalidKeyException, UnsupportedEncodingException {
+        String chartUrl = new ImageCharts()
+                .cht("bvg") // vertical bar chart
+                .chs("300x300") // 300px x 300px
+                .chd("a:60,40") // 2 data points: 60 and 40
+                .toDataURI();
+
+        System.out.println(chartUrl); // "data:image/png;base64,iVBORw0KGgo...
+    }
+}
+
+
+
 ```
 
 - _[Back to Getting started](#getting-started)_
@@ -242,19 +312,29 @@ These two parameters are mandatory to sign your request and remove the watermark
 Replace both values in the code example below:
 
 ```java
-import com.image.charts.ImageCharts;
+import <%= pkg.java.name %>.ImageCharts;
 
-String chartUrl = new ImageCharts("SECRET_KEY")
-.icac("ACCOUNT_ID")
-.cht("p3") // pie chart
-.chs("700x190") // 700px x 190px
-.chd("t:60,40") // 2 data points: 60 and 40
-.chl("Hello|World") // 1 label per pie slice : "Hello" and "World"
-.chf("ps0-0,lg,45,ffeb3b,0.2,f44336,1|ps0-1,lg,45,8bc34a,0.2,009688,1") // 1 gradient per pie slice
-.icretina("1") // enable paid-only features like high-resolution charts
-.toURL(); // get the whole (HMAC signed) URL
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 
-System.out.println(chartUrl); // https://image-charts.com/chart?chd=t%3A60%2C40&chf=ps0-0%2Clg%2C45%2Cffeb3b%2C0.2%2Cf44336%2C1%7Cps0-1%2Clg%2C45%2C8bc34a%2C0.2%2C009688%2C1&chl=Hello%7CWorld&chs=700x190&cht=p3&icac=fgribreau&icretina=1&ichm=652f09953663bce161ac612af5f310f5abf7151b55337ef2a97e5e1cd559c8fb
+public class EnterpriseSignChart {
+    public static void main(String[] args) throws MalformedURLException, NoSuchAlgorithmException, InvalidKeyException, UnsupportedEncodingException {
+        String chartUrl = new ImageCharts("SECRET_KEY")
+            .icac("ACCOUNT_ID")
+            .cht("p3") // pie chart
+            .chs("700x190") // 700px x 190px
+            .chd("t:60,40") // 2 data points: 60 and 40
+            .chl("Hello|World") // 1 label per pie slice : "Hello" and "World"
+            .chf("ps0-0,lg,45,ffeb3b,0.2,f44336,1|ps0-1,lg,45,8bc34a,0.2,009688,1") // 1 gradient per pie slice
+            .icretina("1") // enable paid-only features like high-resolution charts
+            .toURL(); // get the whole (HMAC signed) URL
+
+        System.out.println(chartUrl); // https://image-charts.com/chart?chd=t%3A60%2C40&chf=ps0-0%2Clg%2C45%2Cffeb3b%2C0.2%2Cf44336%2C1%7Cps0-1%2Clg%2C45%2C8bc34a%2C0.2%2C009688%2C1&chl=Hello%7CWorld&chs=700x190&cht=p3&icac=fgribreau&icretina=1&ichm=652f09953663bce161ac612af5f310f5abf7151b55337ef2a97e5e1cd559c8fb
+    }
+}
+
 ```
 
 <p align="center"><img

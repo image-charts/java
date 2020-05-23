@@ -85,14 +85,6 @@ public class ImageChartsTest {
     }
 
     @Test
-    @DisplayName("toFile - works")
-    void toFileWorks() throws NoSuchAlgorithmException, InvalidKeyException, IOException {
-      new ImageCharts()
-        .cht("p").chd("t:1,2,3").chs("100x100").toFile("/app/.cache/plop.png");
-      assertTrue(new File("/app/.cache/plop.png").exists());
-    }
-
-    @Test
     @DisplayName("toDataURI - rejects if a chs is not defined")
     void toDataURIRejectsIfChsNotDefined() {
         ImageChartsException exception = assertThrows(ImageChartsException.class, new Executable() {
@@ -122,6 +114,45 @@ public class ImageChartsTest {
         String dataURI = new ImageCharts().cht("p").chd("t:1,2,3").chan("100").chs("2x2").toDataURI();
 
         assertEquals("data:image/gif;base64,iVBORw0K", dataURI.substring(0, 30));
+    }
+
+    @Test
+    @DisplayName("toFile - rejects if there was an error")
+    void toFileRejectsIfError() {
+        ImageChartsException exception = assertThrows(ImageChartsException.class, new Executable() {
+            @Override
+            public void execute() throws Throwable {
+                new ImageCharts().cht("p").chd("t:1,2,3").toFile("/tmp/chart.png");
+            }
+        });
+
+        String expectedMessage = "\"\\\"chs\\\" is required\"";
+
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("toFile - rejects when the path is invalid")
+    void toFileRejectsWhenInvalidPath() {
+        ImageChartsException exception = assertThrows(ImageChartsException.class, new Executable() {
+            @Override
+            public void execute() throws Throwable {
+                new ImageCharts().cht("p").chd("t:1,2,3").toFile("/__invalid_path/chart.png");
+            }
+        });
+
+        String expectedMessage = "\"\\\"chs\\\" is required\"";
+
+        assertEquals(expectedMessage, exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("toFile - works")
+    void toFileWorks() throws NoSuchAlgorithmException, InvalidKeyException, IOException {
+        String filePath = "/app/.cache/plop.png";
+        new ImageCharts().cht("p").chd("t:1,2,3").chan("100").chs("2x2").toFile(filePath);
+
+        assertTrue(new File(filePath).exists());
     }
 
     @Test
