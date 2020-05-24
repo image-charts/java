@@ -163,7 +163,7 @@ public ImageCharts(String protocol, String host, Integer port, String pathname, 
 ##### Usage
 
 ```java
-import <%= pkg.java.name %>.ImageCharts;
+import com.image.charts.ImageCharts;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
@@ -200,7 +200,7 @@ public class GenerateChartUrl {
 ##### Usage
 
 ```java
-import <%= pkg.java.name %>.ImageCharts;
+import com.image.charts.ImageCharts;
 
 import java.io.IOException;
 import java.security.InvalidKeyException;
@@ -236,7 +236,7 @@ public class DownloadChartAsImage {
 ##### Usage
 
 ```java
-import <%= pkg.java.name %>.ImageCharts;
+import com.image.charts.ImageCharts;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -270,7 +270,7 @@ public class DownloadChartAsBuffer {
 ##### Usage
 
 ```java
-import <%= pkg.java.name %>.ImageCharts;
+import com.image.charts.ImageCharts;
 
 import java.io.IOException;
 import java.security.InvalidKeyException;
@@ -312,7 +312,7 @@ These two parameters are mandatory to sign your request and remove the watermark
 Replace both values in the code example below:
 
 ```java
-import <%= pkg.java.name %>.ImageCharts;
+import com.image.charts.ImageCharts;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
