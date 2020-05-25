@@ -540,6 +540,32 @@ public class ImageCharts {
         return this.clone("icretina", icretina);
     }
     
+    /**
+    * Background color for QR Codes
+    * [Reference documentation]{@link https://documentation.image-charts.com/qr-codes/#background-color}
+    * @example
+    * ImageCharts.Builder chart = new ImageCharts.Builder().icqrb("FFFFFF");
+    * @default "FFFFFF"
+    * @param {String} value - Background color for QR Codes
+    * @return {ImageCharts}
+    */
+    public ImageCharts icqrb(String icqrb) {
+        return this.clone("icqrb", icqrb);
+    }
+    
+    /**
+    * Foreground color for QR Codes
+    * [Reference documentation]{@link https://documentation.image-charts.com/qr-codes/#foreground-color}
+    * @example
+    * ImageCharts.Builder chart = new ImageCharts.Builder().icqrf("000000");
+    * @default "000000"
+    * @param {String} value - Foreground color for QR Codes
+    * @return {ImageCharts}
+    */
+    public ImageCharts icqrf(String icqrf) {
+        return this.clone("icqrf", icqrf);
+    }
+    
 
     /**
      * Get the full Image-Charts API url (signed and encoded if necessary)
