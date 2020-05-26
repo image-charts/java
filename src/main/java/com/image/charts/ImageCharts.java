@@ -98,12 +98,11 @@ public class ImageCharts {
     * bvg= grouped bar chart, bvs= stacked bar chart, lc=line chart, ls=sparklines, p=pie chart. gv=graph viz
 	*         Three-dimensional pie chart (p3) will be rendered in 2D, concentric pie chart are not supported.
 	*         [Optional, line charts only] You can add :nda after the chart type in line charts to hide the default axes.
-    * [Reference documentation]{@see <a href="https://documentation.image-charts.com/reference/chart-type/">https://documentation.image-charts.com/reference/chart-type/</a>}
-    * @example
-    * ImageCharts.Builder chart = new ImageCharts.Builder().cht("bvg");
-    * ImageCharts.Builder chart = new ImageCharts.Builder().cht("p");
-    * 
-    * @param {String} value - Chart type
+    * @see <a href="https://documentation.image-charts.com/reference/chart-type/">cht</a>
+    * Examples :
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().cht("bvg");}
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().cht("p");}
+    * @param cht - Chart type. 
     * @return {ImageCharts}
     */
     public ImageCharts cht(String cht) {
@@ -112,14 +111,13 @@ public class ImageCharts {
     
     /**
     * chart data
-    * [Reference documentation]{@see <a href="https://documentation.image-charts.com/reference/data-format/">https://documentation.image-charts.com/reference/data-format/</a>}
-    * @example
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chd("a:-100,200.5,75.55,110");
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chd("t:10,20,30|15,25,35");
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chd("s:BTb19_,Mn5tzb");
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chd("e:BaPoqM2s,-A__RMD6");
-    * 
-    * @param {String} value - chart data
+    * @see <a href="https://documentation.image-charts.com/reference/data-format/">chd</a>
+    * Examples :
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chd("a:-100,200.5,75.55,110");}
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chd("t:10,20,30|15,25,35");}
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chd("s:BTb19_,Mn5tzb");}
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chd("e:BaPoqM2s,-A__RMD6");}
+    * @param chd - chart data. 
     * @return {ImageCharts}
     */
     public ImageCharts chd(String chd) {
@@ -128,11 +126,10 @@ public class ImageCharts {
     
     /**
     * You can configure some charts to scale automatically to fit their data with chds=a. The chart will be scaled so that the largest value is at the top of the chart and the smallest (or zero, if all values are greater than zero) will be at the bottom. Otherwise the &#34;&amp;lg;series_1_min&amp;gt;,&amp;lg;series_1_max&amp;gt;,...,&amp;lg;series_n_min&amp;gt;,&amp;lg;series_n_max&amp;gt;&#34; format set one or more minimum and maximum permitted values for each data series, separated by commas. You must supply both a max and a min. If you supply fewer pairs than there are data series, the last pair is applied to all remaining data series. Note that this does not change the axis range; to change the axis range, you must set the chxr parameter. Valid values range from (+/-)9.999e(+/-)199. You can specify values in either standard or E notation.
-    * [Reference documentation]{@see <a href="https://documentation.image-charts.com/reference/data-format/#text-format-with-custom-scaling">https://documentation.image-charts.com/reference/data-format/#text-format-with-custom-scaling</a>}
-    * @example
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chds("-80,140");
-    * 
-    * @param {String} value - data format with custom scaling
+    * @see <a href="https://documentation.image-charts.com/reference/data-format/#text-format-with-custom-scaling">chds</a>
+    * Examples :
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chds("-80,140");}
+    * @param chds - data format with custom scaling. 
     * @return {ImageCharts}
     */
     public ImageCharts chds(String chds) {
@@ -141,11 +138,10 @@ public class ImageCharts {
     
     /**
     * How to encode the data in the QR code. &#39;UTF-8&#39; is the default and only supported value. Contact our team if you wish to have support for Shift_JIS and/or ISO-8859-1.
-    * [Reference documentation]{@see <a href="https://documentation.image-charts.com/qr-codes/#data-encoding">https://documentation.image-charts.com/qr-codes/#data-encoding</a>}
-    * @example
-    * ImageCharts.Builder chart = new ImageCharts.Builder().choe("UTF-8");
-    * 
-    * @param {String} value - QRCode data encoding
+    * @see <a href="https://documentation.image-charts.com/qr-codes/#data-encoding">choe</a>
+    * Examples :
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().choe("UTF-8");}
+    * @param choe - QRCode data encoding. 
     * @return {ImageCharts}
     */
     public ImageCharts choe(String choe) {
@@ -154,14 +150,13 @@ public class ImageCharts {
     
     /**
     * QRCode error correction level and optional margin
-    * [Reference documentation]{@see <a href="https://documentation.image-charts.com/qr-codes/#error-correction-level-and-margin">https://documentation.image-charts.com/qr-codes/#error-correction-level-and-margin</a>}
-    * @example
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chld("L|4");
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chld("M|10");
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chld("Q|5");
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chld("H|18");
-    * @default "L|4"
-    * @param {String} value - QRCode error correction level and optional margin
+    * @see <a href="https://documentation.image-charts.com/qr-codes/#error-correction-level-and-margin">chld</a>
+    * Examples :
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chld("L|4");}
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chld("M|10");}
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chld("Q|5");}
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chld("H|18");}
+    * @param chld - QRCode error correction level and optional margin. Default : "L|4"
     * @return {ImageCharts}
     */
     public ImageCharts chld(String chld) {
@@ -170,13 +165,12 @@ public class ImageCharts {
     
     /**
     * You can specify the range of values that appear on each axis independently, using the chxr parameter. Note that this does not change the scale of the chart elements (use chds for that), only the scale of the axis labels.
-    * [Reference documentation]{@see <a href="https://documentation.image-charts.com/reference/chart-axis/#axis-range">https://documentation.image-charts.com/reference/chart-axis/#axis-range</a>}
-    * @example
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chxr("0,0,200");
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chxr("0,10,50,5");
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chxr("0,0,500|1,0,200");
-    * 
-    * @param {String} value - Axis data-range
+    * @see <a href="https://documentation.image-charts.com/reference/chart-axis/#axis-range">chxr</a>
+    * Examples :
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chxr("0,0,200");}
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chxr("0,10,50,5");}
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chxr("0,0,500|1,0,200");}
+    * @param chxr - Axis data-range. 
     * @return {ImageCharts}
     */
     public ImageCharts chxr(String chxr) {
@@ -185,11 +179,10 @@ public class ImageCharts {
     
     /**
     * Some clients like Flowdock/Facebook messenger and so on, needs an URL to ends with a valid image extension file to display the image, use this parameter at the end your URL to support them. Valid values are &#34;.png&#34; and &#34;.gif&#34;
-    * [Reference documentation]{@see <a href="https://documentation.image-charts.com/reference/output-format/">https://documentation.image-charts.com/reference/output-format/</a>}
-    * @example
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chof(".png");
-    * @default ".png"
-    * @param {String} value - Output fake format
+    * @see <a href="https://documentation.image-charts.com/reference/output-format/">chof</a>
+    * Examples :
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chof(".png");}
+    * @param chof - Output fake format. Default : ".png"
     * @return {ImageCharts}
     */
     public ImageCharts chof(String chof) {
@@ -198,11 +191,10 @@ public class ImageCharts {
     
     /**
     * Maximum chart size for all charts except maps is 998,001 pixels total (Google Image Charts was limited to 300,000), and maximum width or length is 999 pixels.
-    * [Reference documentation]{@see <a href="https://documentation.image-charts.com/reference/chart-size/">https://documentation.image-charts.com/reference/chart-size/</a>}
-    * @example
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chs("400x400");
-    * 
-    * @param {String} value - Chart size (&lt;width&gt;x&lt;height&gt;)
+    * @see <a href="https://documentation.image-charts.com/reference/chart-size/">chs</a>
+    * Examples :
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chs("400x400");}
+    * @param chs - Chart size (&lt;width&gt;x&lt;height&gt;). 
     * @return {ImageCharts}
     */
     public ImageCharts chs(String chs) {
@@ -211,11 +203,10 @@ public class ImageCharts {
     
     /**
     * Format: &amp;lt;data_series_1_label&amp;gt;|...|&amp;lt;data_series_n_label&amp;gt;. The text for the legend entries. Each label applies to the corresponding series in the chd array. Use a + mark for a space. If you do not specify this parameter, the chart will not get a legend. There is no way to specify a line break in a label. The legend will typically expand to hold your legend text, and the chart area will shrink to accommodate the legend.
-    * [Reference documentation]{@see <a href="https://documentation.image-charts.com/reference/legend-text-and-style/">https://documentation.image-charts.com/reference/legend-text-and-style/</a>}
-    * @example
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chdl("NASDAQ|FTSE100|DOW");
-    * 
-    * @param {String} value - Text for each series, to display in the legend
+    * @see <a href="https://documentation.image-charts.com/reference/legend-text-and-style/">chdl</a>
+    * Examples :
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chdl("NASDAQ|FTSE100|DOW");}
+    * @param chdl - Text for each series, to display in the legend. 
     * @return {ImageCharts}
     */
     public ImageCharts chdl(String chdl) {
@@ -224,11 +215,10 @@ public class ImageCharts {
     
     /**
     * Specifies the color and font size of the legend text. &lt;color&gt;,&lt;size&gt;
-    * [Reference documentation]{@see <a href="https://documentation.image-charts.com/reference/legend-text-and-style/">https://documentation.image-charts.com/reference/legend-text-and-style/</a>}
-    * @example
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chdls("9e9e9e,17");
-    * @default "000000"
-    * @param {String} value - Chart legend text and style
+    * @see <a href="https://documentation.image-charts.com/reference/legend-text-and-style/">chdls</a>
+    * Examples :
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chdls("9e9e9e,17");}
+    * @param chdls - Chart legend text and style. Default : "000000"
     * @return {ImageCharts}
     */
     public ImageCharts chdls(String chdls) {
@@ -237,12 +227,11 @@ public class ImageCharts {
     
     /**
     * Solid or dotted grid lines
-    * [Reference documentation]{@see <a href="https://documentation.image-charts.com/reference/grid-lines/">https://documentation.image-charts.com/reference/grid-lines/</a>}
-    * @example
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chg("1,1");
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chg("0,1,1,5");
-    * 
-    * @param {String} value - Solid or dotted grid lines
+    * @see <a href="https://documentation.image-charts.com/reference/grid-lines/">chg</a>
+    * Examples :
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chg("1,1");}
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chg("0,1,1,5");}
+    * @param chg - Solid or dotted grid lines. 
     * @return {ImageCharts}
     */
     public ImageCharts chg(String chg) {
@@ -256,12 +245,11 @@ public class ImageCharts {
 	*       Each entry in this string is an RRGGBB[AA] format hexadecimal number.
 	*       If there are more series or elements in the chart than colors specified in your string, the API typically cycles through element colors from the start of that series (for elements) or for series colors from the start of the series list.
 	*       Again, see individual chart documentation for details.
-    * [Reference documentation]{@see <a href="https://documentation.image-charts.com/bar-charts/#examples">https://documentation.image-charts.com/bar-charts/#examples</a>}
-    * @example
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chco("FFC48C");
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chco("FF0000,00FF00,0000FF");
-    * @default "F56991,FF9F80,FFC48C,D1F2A5,EFFAB4"
-    * @param {String} value - series colors
+    * @see <a href="https://documentation.image-charts.com/bar-charts/#examples">chco</a>
+    * Examples :
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chco("FFC48C");}
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chco("FF0000,00FF00,0000FF");}
+    * @param chco - series colors. Default : "F56991,FF9F80,FFC48C,D1F2A5,EFFAB4"
     * @return {ImageCharts}
     */
     public ImageCharts chco(String chco) {
@@ -270,11 +258,10 @@ public class ImageCharts {
     
     /**
     * chart title
-    * [Reference documentation]{@see <a href="https://documentation.image-charts.com/reference/chart-title/">https://documentation.image-charts.com/reference/chart-title/</a>}
-    * @example
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chtt("My beautiful chart");
-    * 
-    * @param {String} value - chart title
+    * @see <a href="https://documentation.image-charts.com/reference/chart-title/">chtt</a>
+    * Examples :
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chtt("My beautiful chart");}
+    * @param chtt - chart title. 
     * @return {ImageCharts}
     */
     public ImageCharts chtt(String chtt) {
@@ -283,11 +270,10 @@ public class ImageCharts {
     
     /**
     * Format should be &#34;&lt;color&gt;,&lt;font_size&gt;[,&lt;opt_alignment&gt;,&lt;opt_font_family&gt;,&lt;opt_font_style&gt;]&#34;, opt_alignement is not supported
-    * [Reference documentation]{@see <a href="https://documentation.image-charts.com/reference/chart-title/">https://documentation.image-charts.com/reference/chart-title/</a>}
-    * @example
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chts("00FF00,17");
-    * 
-    * @param {String} value - chart title colors and font size
+    * @see <a href="https://documentation.image-charts.com/reference/chart-title/">chts</a>
+    * Examples :
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chts("00FF00,17");}
+    * @param chts - chart title colors and font size. 
     * @return {ImageCharts}
     */
     public ImageCharts chts(String chts) {
@@ -296,14 +282,13 @@ public class ImageCharts {
     
     /**
     * Specify which axes you want (from: &#34;x&#34;, &#34;y&#34;, &#34;t&#34; and &#34;r&#34;). You can use several of them, separated by a coma; for example: &#34;x,x,y,r&#34;. Order is important.
-    * [Reference documentation]{@see <a href="https://documentation.image-charts.com/reference/chart-axis/#visible-axes">https://documentation.image-charts.com/reference/chart-axis/#visible-axes</a>}
-    * @example
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chxt("y");
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chxt("x,y");
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chxt("x,x,y");
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chxt("x,y,t,r,t");
-    * 
-    * @param {String} value - Display values on your axis lines or change which axes are shown
+    * @see <a href="https://documentation.image-charts.com/reference/chart-axis/#visible-axes">chxt</a>
+    * Examples :
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chxt("y");}
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chxt("x,y");}
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chxt("x,x,y");}
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chxt("x,y,t,r,t");}
+    * @param chxt - Display values on your axis lines or change which axes are shown. 
     * @return {ImageCharts}
     */
     public ImageCharts chxt(String chxt) {
@@ -312,12 +297,11 @@ public class ImageCharts {
     
     /**
     * Specify one parameter set for each axis that you want to label. Format &#34;&lt;axis_index&gt;:|&lt;label_1&gt;|...|&lt;label_n&gt;|...|&lt;axis_index&gt;:|&lt;label_1&gt;|...|&lt;label_n&gt;&#34;. Separate multiple sets of labels using the pipe character ( | ).
-    * [Reference documentation]{@see <a href="https://documentation.image-charts.com/reference/chart-axis/#custom-axis-labels">https://documentation.image-charts.com/reference/chart-axis/#custom-axis-labels</a>}
-    * @example
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chxl("0:|Jan|July|Jan");
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chxl("0:|Jan|July|Jan|1|10|20|30");
-    * 
-    * @param {String} value - Custom string axis labels on any axis
+    * @see <a href="https://documentation.image-charts.com/reference/chart-axis/#custom-axis-labels">chxl</a>
+    * Examples :
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chxl("0:|Jan|July|Jan");}
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chxl("0:|Jan|July|Jan|1|10|20|30");}
+    * @param chxl - Custom string axis labels on any axis. 
     * @return {ImageCharts}
     */
     public ImageCharts chxl(String chxl) {
@@ -326,16 +310,15 @@ public class ImageCharts {
     
     /**
     * You can specify the range of values that appear on each axis independently, using the chxr parameter. Note that this does not change the scale of the chart elements (use chds for that), only the scale of the axis labels.
-    * [Reference documentation]{@see <a href="https://documentation.image-charts.com/reference/chart-axis/#axis-label-styles">https://documentation.image-charts.com/reference/chart-axis/#axis-label-styles</a>}
-    * @example
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chxs("1,0000DD");
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chxs("1N*cUSD*Mil,FF0000");
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chxs("1N*cEUR*,FF0000");
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chxs("2,0000DD,13,0,t");
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chxs("0N*p*per-month,0000FF");
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chxs("0N*e*,000000|1N*cUSD*Mil,FF0000|2N*2sz*,0000FF");
-    * 
-    * @param {String} value - Font size, color for axis labels, both custom labels and default label values
+    * @see <a href="https://documentation.image-charts.com/reference/chart-axis/#axis-label-styles">chxs</a>
+    * Examples :
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chxs("1,0000DD");}
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chxs("1N*cUSD*Mil,FF0000");}
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chxs("1N*cEUR*,FF0000");}
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chxs("2,0000DD,13,0,t");}
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chxs("0N*p*per-month,0000FF");}
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chxs("0N*e*,000000|1N*cUSD*Mil,FF0000|2N*2sz*,0000FF");}
+    * @param chxs - Font size, color for axis labels, both custom labels and default label values. 
     * @return {ImageCharts}
     */
     public ImageCharts chxs(String chxs) {
@@ -349,11 +332,10 @@ public class ImageCharts {
 	*   - line marker (add a line that traces data in your chart): chm=D,&lt;color&gt;,&lt;series_index&gt;,&lt;which_points&gt;,&lt;width&gt;,&lt;opt_z_order&gt;
 	*   - Text and Data Value Markers: chm=N&lt;formatting_string&gt;,&lt;color&gt;,&lt;series_index&gt;,&lt;which_points&gt;,&lt;width&gt;,&lt;opt_z_order&gt;,&lt;font_family&gt;,&lt;font_style&gt;
 	*     
-    * [Reference documentation]{@see <a href="https://documentation.image-charts.com/reference/compound-charts/">https://documentation.image-charts.com/reference/compound-charts/</a>}
-    * @example
+    * @see <a href="https://documentation.image-charts.com/reference/compound-charts/">chm</a>
+    * Examples :
 
-    * 
-    * @param {String} value - compound charts and line fills
+    * @param chm - compound charts and line fills. 
     * @return {ImageCharts}
     */
     public ImageCharts chm(String chm) {
@@ -362,12 +344,11 @@ public class ImageCharts {
     
     /**
     * line thickness and solid/dashed style
-    * [Reference documentation]{@see <a href="https://documentation.image-charts.com/line-charts/#line-styles">https://documentation.image-charts.com/line-charts/#line-styles</a>}
-    * @example
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chls("10");
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chls("3,6,3|5");
-    * 
-    * @param {String} value - line thickness and solid/dashed style
+    * @see <a href="https://documentation.image-charts.com/line-charts/#line-styles">chls</a>
+    * Examples :
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chls("10");}
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chls("3,6,3|5");}
+    * @param chls - line thickness and solid/dashed style. 
     * @return {ImageCharts}
     */
     public ImageCharts chls(String chls) {
@@ -376,14 +357,13 @@ public class ImageCharts {
     
     /**
     * If specified it will override &#34;chdl&#34; values
-    * [Reference documentation]{@see <a href="https://documentation.image-charts.com/reference/chart-label/">https://documentation.image-charts.com/reference/chart-label/</a>}
-    * @example
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chl("label1|label2");
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chl("multi
+    * @see <a href="https://documentation.image-charts.com/reference/chart-label/">chl</a>
+    * Examples :
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chl("label1|label2");}
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chl("multi
 	* line
-	* label1|label2");
-    * 
-    * @param {String} value - bar, pie slice, doughnut slice and polar slice chart labels
+	* label1|label2");}
+    * @param chl - bar, pie slice, doughnut slice and polar slice chart labels. 
     * @return {ImageCharts}
     */
     public ImageCharts chl(String chl) {
@@ -392,12 +372,11 @@ public class ImageCharts {
     
     /**
     * chart margins
-    * [Reference documentation]{@see <a href="https://documentation.image-charts.com/reference/chart-margin/">https://documentation.image-charts.com/reference/chart-margin/</a>}
-    * @example
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chma("30,30,30,30");
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chma("40,20");
-    * 
-    * @param {String} value - chart margins
+    * @see <a href="https://documentation.image-charts.com/reference/chart-margin/">chma</a>
+    * Examples :
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chma("30,30,30,30");}
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chma("40,20");}
+    * @param chma - chart margins. 
     * @return {ImageCharts}
     */
     public ImageCharts chma(String chma) {
@@ -406,11 +385,10 @@ public class ImageCharts {
     
     /**
     * Position of the legend and order of the legend entries
-    * [Reference documentation]{@see <a href="https://documentation.image-charts.com/reference/legend-text-and-style/">https://documentation.image-charts.com/reference/legend-text-and-style/</a>}
-    * @example
+    * @see <a href="https://documentation.image-charts.com/reference/legend-text-and-style/">chdlp</a>
+    * Examples :
 
-    * @default "r"
-    * @param {String} value - Position of the legend and order of the legend entries
+    * @param chdlp - Position of the legend and order of the legend entries. Default : "r"
     * @return {ImageCharts}
     */
     public ImageCharts chdlp(String chdlp) {
@@ -419,11 +397,10 @@ public class ImageCharts {
     
     /**
     * Background Fills
-    * [Reference documentation]{@see <a href="https://documentation.image-charts.com/reference/background-fill/">https://documentation.image-charts.com/reference/background-fill/</a>}
-    * @example
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chf("b0,lg,0,f44336,0.3,03a9f4,0.8");
-    * @default "bg,s,FFFFFF"
-    * @param {String} value - Background Fills
+    * @see <a href="https://documentation.image-charts.com/reference/background-fill/">chf</a>
+    * Examples :
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chf("b0,lg,0,f44336,0.3,03a9f4,0.8");}
+    * @param chf - Background Fills. Default : "bg,s,FFFFFF"
     * @return {ImageCharts}
     */
     public ImageCharts chf(String chf) {
@@ -432,12 +409,11 @@ public class ImageCharts {
     
     /**
     * gif configuration
-    * [Reference documentation]{@see <a href="https://documentation.image-charts.com/reference/animation/">https://documentation.image-charts.com/reference/animation/</a>}
-    * @example
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chan("1200");
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chan("1300|easeInOutSine");
-    * 
-    * @param {String} value - gif configuration
+    * @see <a href="https://documentation.image-charts.com/reference/animation/">chan</a>
+    * Examples :
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chan("1200");}
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chan("1300|easeInOutSine");}
+    * @param chan - gif configuration. 
     * @return {ImageCharts}
     */
     public ImageCharts chan(String chan) {
@@ -446,12 +422,11 @@ public class ImageCharts {
     
     /**
     * doughnut chart inside label
-    * [Reference documentation]{@see <a href="https://documentation.image-charts.com/pie-charts/#inside-label">https://documentation.image-charts.com/pie-charts/#inside-label</a>}
-    * @example
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chli("95K€");
-    * ImageCharts.Builder chart = new ImageCharts.Builder().chli("45%");
-    * 
-    * @param {String} value - doughnut chart inside label
+    * @see <a href="https://documentation.image-charts.com/pie-charts/#inside-label">chli</a>
+    * Examples :
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chli("95K€");}
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chli("45%");}
+    * @param chli - doughnut chart inside label. 
     * @return {ImageCharts}
     */
     public ImageCharts chli(String chli) {
@@ -460,11 +435,10 @@ public class ImageCharts {
     
     /**
     * image-charts enterprise `account_id`
-    * [Reference documentation]{@see <a href="https://documentation.image-charts.com/enterprise/">https://documentation.image-charts.com/enterprise/</a>}
-    * @example
-    * ImageCharts.Builder chart = new ImageCharts.Builder().icac("accountId");
-    * 
-    * @param {String} value - image-charts enterprise `account_id`
+    * @see <a href="https://documentation.image-charts.com/enterprise/">icac</a>
+    * Examples :
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().icac("accountId");}
+    * @param icac - image-charts enterprise `account_id`. 
     * @return {ImageCharts}
     */
     public ImageCharts icac(String icac) {
@@ -473,11 +447,10 @@ public class ImageCharts {
     
     /**
     * HMAC-SHA256 signature required to activate paid features
-    * [Reference documentation]{@see <a href="https://documentation.image-charts.com/enterprise/">https://documentation.image-charts.com/enterprise/</a>}
-    * @example
-    * ImageCharts.Builder chart = new ImageCharts.Builder().ichm("0785cf22a0381c2e0239e27c126de4181f501d117c2c81745611e9db928b0376");
-    * 
-    * @param {String} value - HMAC-SHA256 signature required to activate paid features
+    * @see <a href="https://documentation.image-charts.com/enterprise/">ichm</a>
+    * Examples :
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().ichm("0785cf22a0381c2e0239e27c126de4181f501d117c2c81745611e9db928b0376");}
+    * @param ichm - HMAC-SHA256 signature required to activate paid features. 
     * @return {ImageCharts}
     */
     public ImageCharts ichm(String ichm) {
@@ -486,13 +459,12 @@ public class ImageCharts {
     
     /**
     * How to use icff to define font family as Google Font : https://developers.google.com/fonts/docs/css2
-    * [Reference documentation]{@see <a href="https://documentation.image-charts.com/reference/chart-font/">https://documentation.image-charts.com/reference/chart-font/</a>}
-    * @example
-    * ImageCharts.Builder chart = new ImageCharts.Builder().icff("Abel");
-    * ImageCharts.Builder chart = new ImageCharts.Builder().icff("Akronim");
-    * ImageCharts.Builder chart = new ImageCharts.Builder().icff("Alfa Slab One");
-    * 
-    * @param {String} value - Default font family for all text from Google Fonts. Use same syntax as Google Font CSS API
+    * @see <a href="https://documentation.image-charts.com/reference/chart-font/">icff</a>
+    * Examples :
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().icff("Abel");}
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().icff("Akronim");}
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().icff("Alfa Slab One");}
+    * @param icff - Default font family for all text from Google Fonts. Use same syntax as Google Font CSS API. 
     * @return {ImageCharts}
     */
     public ImageCharts icff(String icff) {
@@ -501,12 +473,11 @@ public class ImageCharts {
     
     /**
     * Default font style for all text
-    * [Reference documentation]{@see <a href="https://documentation.image-charts.com/reference/chart-font/">https://documentation.image-charts.com/reference/chart-font/</a>}
-    * @example
-    * ImageCharts.Builder chart = new ImageCharts.Builder().icfs("normal");
-    * ImageCharts.Builder chart = new ImageCharts.Builder().icfs("italic");
-    * 
-    * @param {String} value - Default font style for all text
+    * @see <a href="https://documentation.image-charts.com/reference/chart-font/">icfs</a>
+    * Examples :
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().icfs("normal");}
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().icfs("italic");}
+    * @param icfs - Default font style for all text. 
     * @return {ImageCharts}
     */
     public ImageCharts icfs(String icfs) {
@@ -515,11 +486,10 @@ public class ImageCharts {
     
     /**
     * localization (ISO 639-1)
-    * [Reference documentation]{@see <a href=""></a>}
-    * @example
-    * ImageCharts.Builder chart = new ImageCharts.Builder().iclocale("en");
-    * 
-    * @param {String} value - localization (ISO 639-1)
+    * @see <a href="">iclocale</a>
+    * Examples :
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().iclocale("en");}
+    * @param iclocale - localization (ISO 639-1). 
     * @return {ImageCharts}
     */
     public ImageCharts iclocale(String iclocale) {
@@ -529,11 +499,10 @@ public class ImageCharts {
     /**
     * Retina is a marketing term coined by Apple that refers to devices and monitors that have a resolution and pixel density so high — roughly 300 or more pixels per inch – that a person is unable to discern the individual pixels at a normal viewing distance.
 	*           In order to generate beautiful charts for these Retina displays, Image-Charts supports a retina mode that can be activated through the icretina=1 parameter
-    * [Reference documentation]{@see <a href="https://documentation.image-charts.com/reference/retina/">https://documentation.image-charts.com/reference/retina/</a>}
-    * @example
-    * ImageCharts.Builder chart = new ImageCharts.Builder().icretina("1");
-    * 
-    * @param {String} value - retina mode
+    * @see <a href="https://documentation.image-charts.com/reference/retina/">icretina</a>
+    * Examples :
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().icretina("1");}
+    * @param icretina - retina mode. 
     * @return {ImageCharts}
     */
     public ImageCharts icretina(String icretina) {
@@ -542,11 +511,10 @@ public class ImageCharts {
     
     /**
     * Background color for QR Codes
-    * [Reference documentation]{@see <a href="https://documentation.image-charts.com/qr-codes/#background-color">https://documentation.image-charts.com/qr-codes/#background-color</a>}
-    * @example
-    * ImageCharts.Builder chart = new ImageCharts.Builder().icqrb("FFFFFF");
-    * @default "FFFFFF"
-    * @param {String} value - Background color for QR Codes
+    * @see <a href="https://documentation.image-charts.com/qr-codes/#background-color">icqrb</a>
+    * Examples :
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().icqrb("FFFFFF");}
+    * @param icqrb - Background color for QR Codes. Default : "FFFFFF"
     * @return {ImageCharts}
     */
     public ImageCharts icqrb(String icqrb) {
@@ -555,11 +523,10 @@ public class ImageCharts {
     
     /**
     * Foreground color for QR Codes
-    * [Reference documentation]{@see <a href="https://documentation.image-charts.com/qr-codes/#foreground-color">https://documentation.image-charts.com/qr-codes/#foreground-color</a>}
-    * @example
-    * ImageCharts.Builder chart = new ImageCharts.Builder().icqrf("000000");
-    * @default "000000"
-    * @param {String} value - Foreground color for QR Codes
+    * @see <a href="https://documentation.image-charts.com/qr-codes/#foreground-color">icqrf</a>
+    * Examples :
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().icqrf("000000");}
+    * @param icqrf - Foreground color for QR Codes. Default : "000000"
     * @return {ImageCharts}
     */
     public ImageCharts icqrf(String icqrf) {
