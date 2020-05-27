@@ -5,8 +5,10 @@
 <!--[![test coverage](https://api.codeclimate.com/v1/badges/8ae1208964cbea39150a/test_coverage)](https://codeclimate.com/github/image-charts/java/test_coverage)-->
 
 ![Libraries.io dependency status for GitHub repo](https://img.shields.io/librariesio/github/image-charts/java)
-![Code Climate technical debt](https://img.shields.io/codeclimate/tech-debt/image-charts/java)
-![Code Climate issues](https://img.shields.io/codeclimate/issues/image-charts/java)
+
+![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/image-charts/java)
+
+
 
 Official [Image Charts](https://image-charts.com/) API client.
 Generate URLs of static image charts.
