@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
 import java.security.InvalidKeyException;
@@ -32,7 +34,27 @@ public class ImageChartsTest {
                 .chs("100x100")
                 .icac("test_fixture")
                 .toURL();
-        assertEquals("https://image-charts.com:443/chart?icac=test_fixture&cht=p&chd=t%3A1%2C2%2C3&chs=100x100&ichm=d660d99f1dab84662d65e5eb71e6e9e1a4c615f4d207a1d83874b5a7dc5fd668", url);
+        assertEquals("https://image-charts.com:443/chart?cht=p&chd=t%3A1%2C2%2C3&chs=100x100&icac=test_fixture&ichm=71bd93758b49ed28fdabd23a0ff366fe7bf877296ea888b9aaf4ede7978bdc8d", url);
+    }
+
+    @Test
+    @DisplayName("toURL - exposes parameters and use them")
+    void toUrlExposesParametersUseThem() throws InvocationTargetException, IllegalAccessException, MalformedURLException, NoSuchAlgorithmException, InvalidKeyException, UnsupportedEncodingException {
+        ImageCharts imageCharts = new ImageCharts();
+
+        StringBuilder query = new StringBuilder();
+        for (Method m : imageCharts.getClass().getMethods()) {
+            if (m.getName().startsWith("c") || m.getName().startsWith("id")) {
+                m.invoke(imageCharts, "plop");
+                query.append("&" + m.getName() + "=plop");
+            }
+        }
+
+        String url = imageCharts.toURL();
+        // Use substring to delete first "&" character
+        String assertQuery = "https://image-charts.com:443/chart?" + query.substring(1);
+
+        assertEquals(assertQuery, url);
     }
 
     @Test
