@@ -190,12 +190,15 @@ public class ImageCharts {
     }
     
     /**
-    * Some clients like Flowdock/Facebook messenger and so on, needs an URL to ends with a valid image extension file to display the image, use this parameter at the end your URL to support them. Valid values are &#34;.png&#34; and &#34;.gif&#34;
+    * Some clients like Flowdock/Facebook messenger and so on, needs an URL to ends with a valid image extension file to display the image, use this parameter at the end your URL to support them. Valid values are &#34;.png&#34;, &#34;.svg&#34; and &#34;.gif&#34;. 
+	*           Only QRCodes and GraphViz support svg output.
     *
     * Examples :
     * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chof(".png");}
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chof(".svg");}
+    * {@code ImageCharts.Builder chart = new ImageCharts.Builder().chof(".gif");}
     *
-    * @param chof - Output fake format. Default : ".png"
+    * @param chof - Image output format. Default : ".png"
     * @return {ImageCharts}
     * @see <a href="https://documentation.image-charts.com/reference/output-format/">Reference documentation</a>
     */
