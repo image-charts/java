@@ -6,7 +6,7 @@
 
     <groupId>com.image-charts</groupId>
     <artifactId>image-charts</artifactId>
-    <version>1.0.143</version>
+    <version>1.0.144</version>
 
     <name>Image-Charts</name>
     <description>Official Image-Charts.com API client library</description>
