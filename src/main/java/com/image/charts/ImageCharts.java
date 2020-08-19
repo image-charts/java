@@ -422,7 +422,7 @@ public class ImageCharts {
     *
     * @param chlps - Position and style of labels on data. 
     * @return {ImageCharts}
-    * @see <a href="https://documentation.image-charts.com/reference/chart-label/">Reference documentation</a>
+    * @see <a href="https://documentation.image-charts.com/reference/chart-label/#positionning-and-formatting">Reference documentation</a>
     */
     public ImageCharts chlps(String chlps) {
         return this.clone("chlps", chlps);
