@@ -6,7 +6,7 @@
 
     <groupId>com.image-charts</groupId>
     <artifactId>image-charts</artifactId>
-    <version>1.0.197</version>
+    <version>1.0.198</version>
 
     <name>Image-Charts</name>
     <description>Official Image-Charts.com API client library</description>
@@ -67,6 +67,12 @@
             <artifactId>json</artifactId>
             <version>20190722</version>
         </dependency>
+	<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+	<dependency>
+    	    <groupId>org.apache.httpcomponents</groupId>
+    	    <artifactId>httpclient</artifactId>
+    	    <version>4.5.13</version>
+	</dependency>
     </dependencies>
 
     <properties>

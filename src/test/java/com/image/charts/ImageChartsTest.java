@@ -127,7 +127,7 @@ public class ImageChartsTest {
         String dataURI = new ImageCharts().cht("p").chd("t:1,2,3").chs("2x2").toDataURI();
 
         assertEquals("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACAQAAAABazTCJAAAADElEQVR42mM4wHAAAAMEAYEq5W5a\n" +
-                "AAAAAElFTkSuQmCC", dataURI);
+          "AAAAAElFTkSuQmCC", dataURI);
     }
 
     @Test

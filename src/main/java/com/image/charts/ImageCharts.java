@@ -1,5 +1,10 @@
 package com.image.charts;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -11,7 +16,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.io.UnsupportedEncodingException;
 import java.io.File;
 import java.net.MalformedURLException;
@@ -22,6 +26,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class ImageCharts {
     private static final String DEFAULT_ENCODING = "UTF-8";
@@ -681,33 +686,40 @@ public class ImageCharts {
      * @throws NoSuchAlgorithmException NoSuchAlgorithmException
      */
     public BufferedImage toBuffer() throws IOException, InvalidKeyException, NoSuchAlgorithmException {
-        URL url = new URL(this.toURL());
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setConnectTimeout(this.timeout);
-        String userAccount = this.query.containsKey("icac") ? " (" + this.query.get("icac") + ")" : "";
-        connection.setRequestProperty("User-Agent", "java-image-charts/1.0.1" + userAccount);
-        int status = connection.getResponseCode();
-
-        if (status >= 200 && status < 300) {
-            return ImageIO.read(connection.getInputStream());
+      HttpGet request = new HttpGet(this.toURL());
+      String userAccount = this.query.containsKey("icac") ? " (" + this.query.get("icac") + ")" : "";
+      request.setHeader("User-Agent", "java-image-charts/1.0.1" + userAccount);
+      RequestConfig config = RequestConfig.custom()
+        .setConnectionRequestTimeout(this.timeout)
+        .setSocketTimeout(this.timeout)
+        .build();
+      request.setConfig(config);
+  
+      HttpClient httpClient = HttpClientBuilder.create().setConnectionTimeToLive(this.timeout, TimeUnit.MILLISECONDS).build();
+      HttpResponse httpResponse = httpClient.execute(request);
+  
+      int status = httpResponse.getStatusLine().getStatusCode();
+  
+      if (status >= 200 && status < 300) {
+        return ImageIO.read(httpResponse.getEntity().getContent());
+      }
+  
+      String validationMessage = httpResponse.getLastHeader("x-ic-error-validation").getValue();
+      String validationCode = httpResponse.getLastHeader("x-ic-error-code").getValue();
+      String message = "";
+  
+      if (validationMessage != null && !validationMessage.isEmpty()) {
+        JSONArray json = new JSONArray(new JSONTokener(validationMessage));
+        JSONArray messageArray = new JSONArray();
+        for (Object x : json) {
+          messageArray.put(((JSONObject) x).getString("message"));
         }
-
-        String validationMessage = connection.getHeaderField("x-ic-error-validation");
-        String validationCode = connection.getHeaderField("x-ic-error-code");
-        String message = "";
-
-        if (validationMessage != null && !validationMessage.isEmpty()) {
-            JSONArray json = new JSONArray(new JSONTokener(validationMessage));
-            JSONArray messageArray = new JSONArray();
-            for (Object x : json) {
-                messageArray.put(((JSONObject) x).getString("message"));
-            }
-            message = messageArray.join("\n");
-        }
-
-        message = !message.isEmpty() ? message : validationCode;
-
-        throw new ImageChartsException(message);
+        message = messageArray.join("\n");
+      }
+  
+      message = !message.isEmpty() ? message : validationCode;
+  
+      throw new ImageChartsException(message);
     }
 
     private String getFileFormat(){
