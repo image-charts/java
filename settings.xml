@@ -1,14 +1,14 @@
 <settings>
   <servers>
     <server>
-      <id>ossrh</id>
+      <id>central</id>
       <username>${env.MAVEN_REPO_USER}</username>
       <password>${env.MAVEN_REPO_PWD}</password>
     </server>
   </servers>
   <profiles>
     <profile>
-      <id>ossrh</id>
+      <id>central</id>
       <activation>
         <activeByDefault>true</activeByDefault>
       </activation>

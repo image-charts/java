@@ -37,13 +37,14 @@ public class ImageCharts {
     private String protocol = "https";
     private Integer port = 443;
     private String pathname = "/chart";
+    private String userAgent;
     private Map<String, Object> query = new LinkedHashMap<String, Object>();
 
     /**
      * Free usage
      **/
     public ImageCharts() {
-        this(null, null, null, null, null);
+        this(null, null, null, null, null, null, null);
     }
 
     /**
@@ -60,7 +61,7 @@ public class ImageCharts {
     * @param timeout  Request timeout (in millisecond) when calling toBuffer() or toDataURI(). Default if null : 5000
     */
     public ImageCharts(String secret, Integer timeout) {
-        this(null, null, null, null, secret, timeout);
+        this(null, null, null, null, secret, timeout, null);
     }
 
     /**
@@ -72,7 +73,7 @@ public class ImageCharts {
     * @param secret  (Enterprise and Enterprise+ subscription only) SECRET_KEY. Default : null
     */
     public ImageCharts(String protocol, String host, Integer port, String pathname, String secret) {
-        this(protocol, host, port, pathname, secret, null);
+        this(protocol, host, port, pathname, secret, null, null);
     }
 
     /**
@@ -85,12 +86,27 @@ public class ImageCharts {
     * @param timeout  Request timeout (in millisecond) when calling toBuffer() or toDataURI(). Default if null : 5000
     */
     public ImageCharts(String protocol, String host, Integer port, String pathname, String secret, Integer timeout) {
+        this(protocol, host, port, pathname, secret, timeout, null);
+    }
+
+    /**
+    * Full constructor with custom user-agent
+    * @param protocol  (On-Premise subscription only) custom protocol. Default if null : "https"
+    * @param host  (Enterprise, Enterprise+ and On-Premise subscription only) custom domain. Default if null : "image-charts.com"
+    * @param port  (On-Premise subscription only) custom port. Default if null "443"
+    * @param pathname  (On-Premise subscription only) custom pathname. Default if null "/chart"
+    * @param secret  (Enterprise and Enterprise+ subscription only) SECRET_KEY. Default : null
+    * @param timeout  Request timeout (in millisecond) when calling toBuffer() or toDataURI(). Default if null : 5000
+    * @param userAgent  Custom user-agent string. Default : null (uses default library user-agent)
+    */
+    public ImageCharts(String protocol, String host, Integer port, String pathname, String secret, Integer timeout, String userAgent) {
         this.secret = secret;
         if (timeout != null) this.timeout = timeout;
         if (host != null) this.host = host;
         if (protocol != null) this.protocol = protocol;
         if (port != null) this.port = port;
         if (pathname != null) this.pathname = pathname;
+        this.userAgent = userAgent;
     }
 
     private ImageCharts clone(String key, Object value) {
@@ -688,7 +704,8 @@ public class ImageCharts {
     public BufferedImage toBuffer() throws IOException, InvalidKeyException, NoSuchAlgorithmException {
       HttpGet request = new HttpGet(this.toURL());
       String userAccount = this.query.containsKey("icac") ? " (" + this.query.get("icac") + ")" : "";
-      request.setHeader("User-Agent", "java-image-charts/1.0.1" + userAccount);
+      String effectiveUserAgent = this.userAgent != null ? this.userAgent : ("java-image-charts/1.0.1" + userAccount);
+      request.setHeader("User-Agent", effectiveUserAgent);
       RequestConfig config = RequestConfig.custom()
         .setConnectionRequestTimeout(this.timeout)
         .setSocketTimeout(this.timeout)
@@ -704,8 +721,10 @@ public class ImageCharts {
         return ImageIO.read(httpResponse.getEntity().getContent());
       }
   
-      String validationMessage = httpResponse.getLastHeader("x-ic-error-validation").getValue();
-      String validationCode = httpResponse.getLastHeader("x-ic-error-code").getValue();
+      org.apache.http.Header validationMessageHeader = httpResponse.getLastHeader("x-ic-error-validation");
+      org.apache.http.Header validationCodeHeader = httpResponse.getLastHeader("x-ic-error-code");
+      String validationMessage = validationMessageHeader != null ? validationMessageHeader.getValue() : null;
+      String validationCode = validationCodeHeader != null ? validationCodeHeader.getValue() : "HTTP_" + status;
       String message = "";
   
       if (validationMessage != null && !validationMessage.isEmpty()) {
