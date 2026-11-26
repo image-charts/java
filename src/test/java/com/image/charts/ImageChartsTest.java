@@ -195,10 +195,12 @@ public class ImageChartsTest {
   @Test
   @DisplayName("toFile - works")
   void toFileWorks() throws NoSuchAlgorithmException, InvalidKeyException, IOException {
-    String filePath = "/app/.cache/plop.png";
+    String filePath = System.getProperty("java.io.tmpdir") + "/image-charts-test.png";
     createImageCharts().cht("p").chd("t:1,2,3").chan("100").chs("2x2").toFile(filePath);
 
     assertTrue(new File(filePath).exists());
+    // Cleanup
+    new File(filePath).delete();
   }
 
   @Test

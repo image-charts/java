@@ -74,35 +74,35 @@ pie.toBuffer(); // BufferedImage
     - __[toBuffer()](#tobuffer)__
     - __[toDataURI()](#todatauri)__
         - __[cht(value) - Chart type](#cht)__
-        - __[chd(value) - chart data](#chd)__
+        - __[chd(value) - chart data.](#chd)__
         - __[chds(value) - data format with custom scaling](#chds)__
         - __[choe(value) - QRCode data encoding](#choe)__
         - __[chld(value) - QRCode error correction level and optional margin](#chld)__
         - __[chxr(value) - Axis data-range](#chxr)__
         - __[chof(value) - Image output format](#chof)__
         - __[chs(value) - Chart size (&lt;width&gt;x&lt;height&gt;)](#chs)__
-        - __[chdl(value) - Text for each series, to display in the legend](#chdl)__
+        - __[chdl(value) - Text for each series, to display in the legend.](#chdl)__
         - __[chdls(value) - Chart legend text and style](#chdls)__
-        - __[chg(value) - Solid or dotted grid lines](#chg)__
+        - __[chg(value) - Solid or dotted grid lines.](#chg)__
         - __[chco(value) - series colors](#chco)__
-        - __[chtt(value) - chart title](#chtt)__
+        - __[chtt(value) - chart title.](#chtt)__
         - __[chts(value) - chart title colors and font size](#chts)__
-        - __[chxt(value) - Display values on your axis lines or change which axes are shown](#chxt)__
-        - __[chxl(value) - Custom string axis labels on any axis](#chxl)__
-        - __[chxs(value) - Font size, color for axis labels, both custom labels and default label values](#chxs)__
-        - __[chm(value) - compound charts and line fills](#chm)__
-        - __[chls(value) - line thickness and solid/dashed style](#chls)__
-        - __[chl(value) - bar, pie slice, doughnut slice and polar slice chart labels](#chl)__
+        - __[chxt(value) - Display values on your axis lines or change which axes are shown.](#chxt)__
+        - __[chxl(value) - Custom string axis labels on any axis.](#chxl)__
+        - __[chxs(value) - Font size, color for axis labels, both custom labels and default label values.](#chxs)__
+        - __[chm(value) - compound charts and line fills.](#chm)__
+        - __[chls(value) - line thickness and solid/dashed style.](#chls)__
+        - __[chl(value) - bar, pie slice, doughnut slice and polar slice chart labels.](#chl)__
         - __[chlps(value) - Position and style of labels on data](#chlps)__
         - __[chma(value) - chart margins](#chma)__
         - __[chdlp(value) - Position of the legend and order of the legend entries](#chdlp)__
-        - __[chf(value) - Background Fills](#chf)__
-        - __[chbr(value) - Bar corner radius. Display bars with rounded corner.](#chbr)__
+        - __[chf(value) - Background Fills.](#chf)__
+        - __[chbr(value) - Bar corner radius.](#chbr)__
         - __[chan(value) - gif configuration](#chan)__
-        - __[chli(value) - doughnut chart inside label](#chli)__
-        - __[icac(value) - image-charts enterprise `account_id`](#icac)__
+        - __[chli(value) - doughnut chart inside label.](#chli)__
+        - __[icac(value) - Image-Charts paid plan `account_id`](#icac)__
         - __[ichm(value) - HMAC-SHA256 signature required to activate paid features](#ichm)__
-        - __[icff(value) - Default font family for all text from Google Fonts. Use same syntax as Google Font CSS API](#icff)__
+        - __[icff(value) - Default font family for all text from Google Fonts.](#icff)__
         - __[icfs(value) - Default font style for all text](#icfs)__
         - __[iclocale(value) - localization (ISO 639-1)](#iclocale)__
         - __[icretina(value) - retina mode](#icretina)__
@@ -122,35 +122,35 @@ pie.toBuffer(); // BufferedImage
 public ImageCharts()
 
 /**
-* Enterprise & Enterprise+ subscriptions
-* @param secret  (Enterprise and Enterprise+ subscription only) SECRET_KEY. Default : null
+* Paid plans (Business, Enterprise)
+* @param secret  (paid plans: Business, Enterprise) SECRET_KEY. Default : null
 */
 public ImageCharts(String secret)
 
 /**
-* Enterprise & Enterprise+ subscriptions
-* @param secret  (Enterprise and Enterprise+ subscription only) SECRET_KEY. Default : null
+* Paid plans (Business, Enterprise)
+* @param secret  (paid plans: Business, Enterprise) SECRET_KEY. Default : null
 * @param timeout  Request timeout (in millisecond) when calling toBuffer() or toDataURI(). Default if null : 5000
 */
 public ImageCharts(String secret, Integer timeout)
 
 /**
 * On-premise subscriptions
-* @param protocol  (On-Premise subscription only) custom protocol. Default if null : "https"
-* @param host  (Enterprise, Enterprise+ and On-Premise subscription only) custom domain. Default if null : "image-charts.com"
-* @param port  (On-Premise subscription only) custom port. Default if null "443"
+* @param protocol  custom protocol ("http" with a custom domain). Default if null : "https"
+* @param host  (paid plans: Business, Enterprise, and On-Premise) custom domain. An Image-Charts custom domain has no TLS: set protocol to "http" and port to 80. Default if null : "image-charts.com"
+* @param port  custom port (80 with a custom domain). Default if null "443"
 * @param pathname  (On-Premise subscription only) custom pathname. Default if null "/chart"
-* @param secret  (Enterprise and Enterprise+ subscription only) SECRET_KEY. Default : null
+* @param secret  (paid plans: Business, Enterprise) SECRET_KEY. Default : null
 */
 public ImageCharts(String protocol, String host, Integer port, String pathname, String secret)
 
 /**
 * On-premise
-* @param protocol  (On-Premise subscription only) custom protocol. Default if null : "https"
-* @param host  (Enterprise, Enterprise+ and On-Premise subscription only) custom domain. Default if null : "image-charts.com"
-* @param port  (On-Premise subscription only) custom port. Default if null "443"
+* @param protocol  custom protocol ("http" with a custom domain). Default if null : "https"
+* @param host  (paid plans: Business, Enterprise, and On-Premise) custom domain. An Image-Charts custom domain has no TLS: set protocol to "http" and port to 80. Default if null : "image-charts.com"
+* @param port  custom port (80 with a custom domain). Default if null "443"
 * @param pathname  (On-Premise subscription only) custom pathname. Default if null "/chart"
-* @param secret  (Enterprise and Enterprise+ subscription only) SECRET_KEY. Default : null
+* @param secret  (paid plans: Business, Enterprise) SECRET_KEY. Default : null
 * @param timeout  Request timeout (in millisecond) when calling toBuffer() or toDataURI(). Default if null : 5000
 */
 public ImageCharts(String protocol, String host, Integer port, String pathname, String secret, Integer timeout)
@@ -309,8 +309,7 @@ public class DownloadChartAsDataUri {
 
 #### Enterprise Support
 
-Image-Charts Enterprise and Enterprise+ subscriptions remove the watermark and enable advanced features like
-custom-domain, high-resolution charts, custom fonts, multiple axis and mixed charts.
+Every paid plan (Business, Enterprise) removes the watermark and gives you a custom domain. The Enterprise plan (Enterprise+ in the reference documentation) adds high-resolution charts, custom fonts, multiple axes and mixed charts.
 
 - [Pricing and plan comparison](https://www.image-charts.com/pricing)
 - [Enterprise documentation](https://documentation.image-charts.com/enterprise/)
@@ -338,7 +337,7 @@ public class EnterpriseSignChart {
             .chd("t:60,40") // 2 data points: 60 and 40
             .chl("Hello|World") // 1 label per pie slice : "Hello" and "World"
             .chf("ps0-0,lg,45,ffeb3b,0.2,f44336,1|ps0-1,lg,45,8bc34a,0.2,009688,1") // 1 gradient per pie slice
-            .icretina("1") // enable paid-only features like high-resolution charts
+            .icretina("1") // enable Enterprise plan features like high-resolution charts
             .toURL(); // get the whole (HMAC signed) URL
 
         System.out.println(chartUrl); // https://image-charts.com/chart?chd=t%3A60%2C40&chf=ps0-0%2Clg%2C45%2Cffeb3b%2C0.2%2Cf44336%2C1%7Cps0-1%2Clg%2C45%2C8bc34a%2C0.2%2C009688%2C1&chl=Hello%7CWorld&chs=700x190&cht=p3&icac=documentation&icretina=1&ichm=122242bb700d825d69b3fafe4ec67193b45dcfe0ed93fcca307e0d0a84b73ea2
@@ -382,7 +381,7 @@ null,
 .chd("t:60,40") // 2 data points: 60 and 40
 .chl("Hello|World") // 1 label per pie slice : "Hello" and "World"
 .chf("ps0-0,lg,45,ffeb3b,0.2,f44336,1|ps0-1,lg,45,8bc34a,0.2,009688,1") // 1 gradient per pie slice
-.icretina("1") // enable paid-only features like high-resolution charts
+.icretina("1") // enable Enterprise plan features like high-resolution charts
 .toURL(); // get the whole (HMAC signed) URL
 
 System.out.println(chartUrl); // https://custom-domain.tld/chart?chd=t%3A60%2C40&chf=ps0-0%2Clg%2C45%2Cffeb3b%2C0.2%2Cf44336%2C1%7Cps0-1%2Clg%2C45%2C8bc34a%2C0.2%2C009688%2C1&chl=Hello%7CWorld&chs=700x190&cht=p3&icac=fgribreau&icretina=1&ichm=652f09953663bce161ac612af5f310f5abf7151b55337ef2a97e5e1cd559c8fb
@@ -434,7 +433,7 @@ Other allowed values are: <pre>p | p3 | pc | pd | ls | lc | lxy | ls:nda | lc:nd
 <a name="chd"></a>
 #### `chd( value )` : [`ImageCharts`](#constructor)
 
-> chart data
+> chart data. At most 1,000 series, chm line markers included, and 10,080 points in total.
 
 > [Reference](https://documentation.image-charts.com/reference/data-format/)
 
@@ -626,7 +625,7 @@ Other allowed values are: <pre>p | p3 | pc | pd | ls | lc | lxy | ls:nda | lc:nd
 <a name="chdl"></a>
 #### `chdl( value )` : [`ImageCharts`](#constructor)
 
-> Text for each series, to display in the legend
+> Text for each series, to display in the legend. Each text between pipes holds at most 10,000 characters. The texts of chtt, chdl, chl and chxl hold at most 10,000 characters together that are not printable ASCII: accented letters, other scripts, emoji and line breaks.
 
 > [Reference](https://documentation.image-charts.com/reference/legend-text-and-style/)
 
@@ -672,7 +671,7 @@ Other allowed values are: <pre>p | p3 | pc | pd | ls | lc | lxy | ls:nda | lc:nd
 <a name="chg"></a>
 #### `chg( value )` : [`ImageCharts`](#constructor)
 
-> Solid or dotted grid lines
+> Solid or dotted grid lines. A dashed grid needs at least 1 pixel per dash or space on average.
 
 > [Reference](https://documentation.image-charts.com/reference/grid-lines/)
 
@@ -730,7 +729,7 @@ Other allowed values are: <pre>p | p3 | pc | pd | ls | lc | lxy | ls:nda | lc:nd
 <a name="chtt"></a>
 #### `chtt( value )` : [`ImageCharts`](#constructor)
 
-> chart title
+> chart title. Each text between pipes holds at most 10,000 characters. The texts of chtt, chdl, chl and chxl hold at most 10,000 characters together that are not printable ASCII: accented letters, other scripts, emoji and line breaks.
 
 > [Reference](https://documentation.image-charts.com/reference/chart-title/)
 
@@ -776,7 +775,7 @@ Other allowed values are: <pre>p | p3 | pc | pd | ls | lc | lxy | ls:nda | lc:nd
 <a name="chxt"></a>
 #### `chxt( value )` : [`ImageCharts`](#constructor)
 
-> Display values on your axis lines or change which axes are shown
+> Display values on your axis lines or change which axes are shown. At most 100 axes.
 
 > [Reference](https://documentation.image-charts.com/reference/chart-axis/#visible-axes)
 
@@ -808,7 +807,7 @@ Other allowed values are: <pre>p | p3 | pc | pd | ls | lc | lxy | ls:nda | lc:nd
 <a name="chxl"></a>
 #### `chxl( value )` : [`ImageCharts`](#constructor)
 
-> Custom string axis labels on any axis
+> Custom string axis labels on any axis. Each text between pipes holds at most 10,000 characters. The texts of chtt, chdl, chl and chxl hold at most 10,000 characters together that are not printable ASCII: accented letters, other scripts, emoji and line breaks. A radar draws a ring per label, completed with blanks up to the longest chd series minus its last value: at most 1,000 rings, and 100,000 ring corners with its spokes.
 
 > [Reference](https://documentation.image-charts.com/reference/chart-axis/#custom-axis-labels)
 
@@ -834,7 +833,7 @@ Other allowed values are: <pre>p | p3 | pc | pd | ls | lc | lxy | ls:nda | lc:nd
 <a name="chxs"></a>
 #### `chxs( value )` : [`ImageCharts`](#constructor)
 
-> Font size, color for axis labels, both custom labels and default label values
+> Font size, color for axis labels, both custom labels and default label values. At most 100 styles, one per axis. Each number format after N holds at most 10,000 characters. An axis draws its format at each tick: at most 60,000 characters over all axes. A character in a font larger than 14 pixels counts once per 14 pixels of font size.
 
 > [Reference](https://documentation.image-charts.com/reference/chart-axis/#axis-label-styles)
 
@@ -869,7 +868,7 @@ Other allowed values are: <pre>p | p3 | pc | pd | ls | lc | lxy | ls:nda | lc:nd
 <a name="chm"></a>
 #### `chm( value )` : [`ImageCharts`](#constructor)
 
-> compound charts and line fills
+> compound charts and line fills. Each marker text holds at most 10,000 characters. The last N marker of a series draws its type and text at each point of the series: at most 60,000 characters over all series. Each label counts 20 characters on top of its text. A character in a font larger than 14 pixels counts once per 14 pixels of font size.
 
 > [Reference](https://documentation.image-charts.com/reference/compound-charts/)
 
@@ -889,7 +888,7 @@ Other allowed values are: <pre>p | p3 | pc | pd | ls | lc | lxy | ls:nda | lc:nd
 <a name="chls"></a>
 #### `chls( value )` : [`ImageCharts`](#constructor)
 
-> line thickness and solid/dashed style
+> line thickness and solid/dashed style. A dashed line needs at least 1 pixel per dash or space on average, and a line width at most 2 times its dash period. Dashed lines run through at most 1,000 points in total.
 
 > [Reference](https://documentation.image-charts.com/line-charts/#line-styles)
 
@@ -915,7 +914,7 @@ Other allowed values are: <pre>p | p3 | pc | pd | ls | lc | lxy | ls:nda | lc:nd
 <a name="chl"></a>
 #### `chl( value )` : [`ImageCharts`](#constructor)
 
-> bar, pie slice, doughnut slice and polar slice chart labels
+> bar, pie slice, doughnut slice and polar slice chart labels. Each text between pipes holds at most 10,000 characters. The texts of chtt, chdl, chl and chxl hold at most 10,000 characters together that are not printable ASCII: accented letters, other scripts, emoji and line breaks. A QR code or a Graphviz chart reads chl as its data, without these limits. A Graphviz chart has its own limits on the DOT source: at most 50,000 characters and 6 levels of braces, 200 nodes and 400 edges. These engines take fewer: neato 70 nodes and 200 edges, twopi 70 nodes and 200 edges, osage 75 nodes and 200 edges, fdp 60 nodes and 200 edges, circo 55 nodes and 110 edges. These graph attributes take a plain decimal number: mclimit from 0 to 5; maxiter from 0 to 1,000; normalize from -100,000,000,000 to 100,000,000,000 (or true, false, yes, no); esep at least 0; dpi at least 0; resolution at least 0. A PNG of more than 16,000,000 pixels, a graph that draws more than 20,000 characters of text, or a line of more than 500 characters is refused: request the SVG output with `chof=.svg` to lift these three.
 
 > [Reference](https://documentation.image-charts.com/reference/chart-label/)
 
@@ -1015,7 +1014,7 @@ label1|label2")</pre>
 <a name="chf"></a>
 #### `chf( value )` : [`ImageCharts`](#constructor)
 
-> Background Fills
+> Background Fills. At most 100 gradient stops over all fills.
 
 > [Reference](https://documentation.image-charts.com/reference/background-fill/)
 
@@ -1090,7 +1089,7 @@ label1|label2")</pre>
 <a name="chli"></a>
 #### `chli( value )` : [`ImageCharts`](#constructor)
 
-> doughnut chart inside label
+> doughnut chart inside label. The inside label holds at most 3,000 characters.
 
 > [Reference](https://documentation.image-charts.com/pie-charts/#inside-label)
 
@@ -1116,7 +1115,7 @@ label1|label2")</pre>
 <a name="icac"></a>
 #### `icac( value )` : [`ImageCharts`](#constructor)
 
-> image-charts enterprise `account_id`
+> Image-Charts paid plan `account_id`
 
 > [Reference](https://documentation.image-charts.com/enterprise/)
 
